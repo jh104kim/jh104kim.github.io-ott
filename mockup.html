@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen Intelligence Agent — 프론트엔드 인터랙티브 목업 v2</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 500: '#3b82f6', 600: '#2563eb' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #090d16; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .genre-chip-active {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(96, 165, 250, 0.6);
+      color: #93c5fd;
+    }
+    .genre-chip-inactive {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(51, 65, 85, 0.5);
+      color: #94a3b8;
+    }
+    .spoiler-blur {
+      filter: blur(8px);
+      user-select: none;
+      transition: filter 0.3s ease;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-16">
+
+  <!-- 1. HEADER -->
+  <header class="sticky top-0 z-40 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('search')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+          <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <span class="font-bold text-lg text-white tracking-tight flex items-center gap-2">
+            Screen Intelligence
+            <span class="text-[10px] uppercase font-semibold tracking-wider px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
+              Gemini 2.5
+            </span>
+          </span>
+          <p class="text-xs text-slate-400">개인 맞춤형 OTT & 극장 스마트 추천 에이전트</p>
+        </div>
+      </div>
+
+      <nav class="flex items-center space-x-2">
+        <button id="tab-search-btn" onclick="switchTab('search')" class="px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800 text-white transition-colors">
+          추천 탐색
+        </button>
+        <button id="tab-wishlist-btn" onclick="switchTab('wishlist')" class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1.5">
+          <i data-lucide="heart" class="w-4 h-4 text-rose-500"></i>
+          찜 목록 (<span id="wishlist-count">2</span>)
+        </button>
+        <button onclick="toggleUsageModal(true)" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 transition-all flex items-center gap-1.5">
+          <i data-lucide="gauge" class="w-3.5 h-3.5 text-emerald-400"></i>
+          오늘 잔여 <strong class="text-emerald-400 font-semibold">9/10</strong>회
+        </button>
+        <div class="h-4 w-px bg-slate-800 mx-1"></div>
+        <div class="flex items-center gap-2 pl-1">
+          <div class="w-8 h-8 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400">
+            DA
+          </div>
+          <div class="hidden md:block text-left text-xs">
+            <p class="font-medium text-slate-200">Dev Admin</p>
+            <p class="text-[10px] text-emerald-400 flex items-center gap-0.5">
+              <i data-lucide="shield-check" class="w-2.5 h-2.5"></i> 자동승인 (Dev Bypass)
+            </p>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 2. MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- SEARCH VIEW -->
+    <div id="search-view" class="space-y-10">
+      
+      <!-- HERO & SEARCH SECTION -->
+      <section class="max-w-4xl mx-auto text-center space-y-5">
+        <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight">
+          재미와 화제성이 검증된 <br class="hidden sm:inline" />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
+            인생 영화·드라마
+          </span> 추천
+        </h1>
+        <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+          내가 아직 안 본 시즌까지 정확하게! <strong class="text-slate-200">40/40/10/10 P-GSEI 지수</strong>와 결말 스포일러 안심 <strong>전문 유튜브 줄거리(어퍼컷, 드림텔러 등)</strong>로 추천합니다.
+        </p>
+
+        <!-- 자연어 검색바 -->
+        <div class="relative max-w-3xl mx-auto flex items-center">
+          <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-4"></i>
+          <input
+            id="query-input"
+            type="text"
+            value="2026년 첩보 관련 미드나 영화 추천해줘"
+            onkeydown="if(event.key === 'Enter') handleSearchInput()"
+            placeholder="예: 첩보 액션, 우주 생존 SF, 좀비 아포칼립스, 범죄 마피아 스릴러 등..."
+            class="w-full h-14 pl-12 pr-32 rounded-2xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-sm md:text-base shadow-2xl transition-all"
+          />
+          <button
+            onclick="handleSearchInput()"
+            class="absolute right-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs md:text-sm transition-all shadow-lg shadow-blue-500/30 flex items-center gap-1.5"
+          >
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            추천 탐색
+          </button>
+        </div>
+
+        <!-- 빠른 주제 프리셋 버튼들 (인기 키워드) -->
+        <div class="flex items-center justify-center gap-2 flex-wrap text-xs pt-1">
+          <span class="text-slate-500 text-[11px] font-medium mr-1 flex items-center gap-1">
+            <i data-lucide="compass" class="w-3.5 h-3.5 text-blue-400"></i> 인기 추천 주제:
+          </span>
+          <button onclick="selectThemePreset('spy')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            🕵️ 첩보 / 스파이
+          </button>
+          <button onclick="selectThemePreset('sf')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            🚀 SF / 우주 탐사
+          </button>
+          <button onclick="selectThemePreset('zombie')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            🧟 좀비 / 아포칼립스
+          </button>
+          <button onclick="selectThemePreset('crime')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            💼 범죄 / 마피아
+          </button>
+          <button onclick="selectThemePreset('timeslip')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            ⏳ 타임슬립 / 미스터리
+          </button>
+        </div>
+
+        <!-- 피드백 반영 ①: 주제 입력 시 감지된 상위 장르 & 동적 세부 장르 4개 패널 -->
+        <div id="dynamic-genre-panel" class="max-w-3xl mx-auto p-4 md:p-5 rounded-2xl bg-slate-900/90 border border-blue-500/30 text-left space-y-3.5 shadow-xl transition-all">
+          
+          <!-- 상위 장르 감지 배너 -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span class="text-xs font-semibold text-slate-300">
+                AI 의도 분석 완료 · 상위 장르:
+              </span>
+              <span id="detected-parent-genre" class="px-2.5 py-0.5 rounded-lg bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-bold flex items-center gap-1">
+                <i data-lucide="tag" class="w-3 h-3 text-blue-400"></i>
+                첩보 / 정보전 (Espionage)
+              </span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-slate-400 text-[11px]">
+                <strong class="text-blue-400" id="selected-subgenre-count">2</strong> / 4개 선택됨
+              </span>
+              <button onclick="selectAllSubgenres()" class="text-blue-400 hover:text-blue-300 font-medium text-[11px] underline">
+                전체 선택
+              </button>
+            </div>
+          </div>
+
+          <!-- 동적으로 달라지는 4개 세부 장르 카드 그리드 -->
+          <div id="subgenre-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 text-xs">
+            <!-- JS로 동적 렌더링 -->
+          </div>
+
+          <!-- 작동 안내 가이드 팁 -->
+          <div class="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400 flex items-center gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-blue-400 shrink-0"></i>
+            <span>
+              <strong>동적 장르 생성 방식:</strong> 검색창에 주제를 변경 입력하거나 상단 주제를 누르면, AI 에이전트가 상위 장르를 자동 감지하고 주제에 맞는 최적 세부 장르 4가지를 실시간 생성합니다.
+            </span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- RESULTS SECTION: 영화 TOP 10 (독립 섹션 D-05) -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <div class="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <i data-lucide="film" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                영화 추천 TOP 10
+                <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-normal">독립 랭킹</span>
+              </h2>
+              <p class="text-xs text-slate-400">국내 OTT 구독·대여 및 현재 극장 상영작 독립 랭킹 (D-05, D-17)</p>
+            </div>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> 40/40/10/10 검증 완료
+          </span>
+        </div>
+
+        <div id="movies-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- JS 렌더링 -->
+        </div>
+      </section>
+
+      <!-- RESULTS SECTION: 미국 드라마(미드) TOP 10 (피드백 반영 ②: 시즌 정보 및 정주행 가이드 강화) -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <div class="p-2 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              <i data-lucide="tv" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                드라마·시리즈 추천 TOP 10
+                <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">
+                  미시청 신규 시즌 우선
+                </span>
+              </h2>
+              <p class="text-xs text-slate-400">시즌별 품질 추세 및 선행 시즌 시청 가이드 제공 (D-07, D-13)</p>
+            </div>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> 시즌 단위 이력 추적
+          </span>
+        </div>
+
+        <div id="series-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- JS 렌더링 -->
+        </div>
+      </section>
+
+      <!-- EXPANSION CONTROLS (D-25 확정: 자동확장 금지, 명시적 버튼 확장) -->
+      <section class="p-6 rounded-2xl bg-slate-900/40 border border-dashed border-slate-800 text-center space-y-3">
+        <p class="text-xs text-slate-400">
+          원하는 작품을 더 넓게 찾아보고 싶으신가요? 기존 순위를 변경하지 않고 독립 섹션으로 확장합니다.
+        </p>
+        <div class="flex items-center justify-center gap-2.5 flex-wrap">
+          <button onclick="alert('영국·유럽 드라마 확장 검색이 실행됩니다 (D-25)')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center gap-1.5 shadow">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> 영국·유럽 드라마 확장 (D-25)
+          </button>
+          <button onclick="alert('전체 연도 과거 명작 확장이 실행됩니다 (D-21)')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center gap-1.5 shadow">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> 전체 연도(과거 명작)로 확장 (D-21)
+          </button>
+          <button onclick="alert('관련 인접 장르 확장이 실행됩니다')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center gap-1.5 shadow">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> 관련 인접 장르 탐색
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- WISHLIST VIEW (찜 목록 탭) -->
+    <div id="wishlist-view" class="hidden space-y-6">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+          <i data-lucide="heart" class="w-6 h-6 text-rose-500 fill-rose-500"></i>
+          나중에 보기 찜 목록 (<span id="wishlist-total-count">2</span>건)
+        </h1>
+        <button onclick="switchTab('search')" class="text-xs text-blue-400 hover:underline">
+          ← 추천 탐색으로 돌아가기
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="flex justify-between items-start">
+            <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 text-[10px] font-semibold">영화</span>
+            <span class="text-rose-400 text-xs flex items-center gap-1">찜 완료</span>
+          </div>
+          <h3 class="text-base font-bold text-white">미션 임파서블: 데드 레코닝 (2023)</h3>
+          <p class="text-xs text-slate-400">P-GSEI 91.5 · 티빙 / 웨이브 구독</p>
+          <button onclick="openDetailModal('m1')" class="w-full py-2 rounded-lg bg-slate-800 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-colors">
+            상세보기 & 전문 YouTube 요약
+          </button>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="flex justify-between items-start">
+            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-semibold">미드 시즌 4</span>
+            <span class="text-rose-400 text-xs flex items-center gap-1">찜 완료</span>
+          </div>
+          <h3 class="text-base font-bold text-white">슬로 호시스 (시즌 4)</h3>
+          <p class="text-xs text-slate-400">P-GSEI 93.4 · Apple TV+ 구독</p>
+          <button onclick="openDetailModal('s1')" class="w-full py-2 rounded-lg bg-slate-800 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-colors">
+            상세보기 & 전문 YouTube 요약
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 3. DETAIL MODAL (작품 클릭 시 팝업: 피드백 반영 ② 시즌 가이드 + ③ 유명 유튜브 채널 연동) -->
+  <div id="detail-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="relative w-full max-w-3xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-6">
+      <button onclick="closeDetailModal()" class="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-slate-850/80 hover:bg-slate-750 text-slate-300 transition-colors bg-slate-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- HERO BANNER -->
+      <div id="modal-hero" class="w-full h-44 bg-gradient-to-r from-blue-700 to-indigo-950 p-6 flex flex-col justify-end relative">
+        <div class="flex items-center gap-2 mb-1.5">
+          <span id="modal-kind-badge" class="px-2.5 py-0.5 rounded-full bg-black/50 text-xs font-bold text-white backdrop-blur-md">
+            미국 드라마
+          </span>
+          <span id="modal-season-guide-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold backdrop-blur-md flex items-center gap-1">
+            <i data-lucide="info" class="w-3 h-3"></i> 시즌 1부터 정주행 추천
+          </span>
+        </div>
+        <h2 id="modal-title" class="text-2xl sm:text-3xl font-black text-white tracking-tight">슬로 호시스 (시즌 4)</h2>
+        <p id="modal-sub" class="text-xs text-white/80 italic mt-0.5">Slow Horses (2024)</p>
+      </div>
+
+      <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto text-xs">
+        
+        <!-- P-GSEI 점수 & 플랫폼 -->
+        <div class="flex items-center justify-between flex-wrap gap-4 p-4 rounded-2xl bg-slate-950/70 border border-slate-800">
+          <div>
+            <span class="text-slate-400 block mb-0.5">개인화 복합 지수 (P-GSEI)</span>
+            <div class="flex items-center gap-2.5">
+              <span id="modal-score" class="text-2xl font-black text-blue-400">93.4</span>
+              <span class="text-[11px] text-emerald-400 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 font-semibold">
+                신뢰도 High · Bayesian 95%
+              </span>
+            </div>
+          </div>
+          <div>
+            <span class="text-slate-400 block mb-1">국내 시청 및 예매 경로</span>
+            <div id="modal-platforms" class="flex items-center gap-1.5 flex-wrap">
+              <span class="px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-300 font-medium">
+                Apple TV+ (월정액 구독)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 줄거리 요약 (스포일러 차단) -->
+        <div>
+          <h3 class="text-sm font-semibold text-slate-200 mb-1.5 flex items-center gap-1.5">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400"></i>
+            안전한 줄거리 맥락 (스포일러 안전)
+          </h3>
+          <p id="modal-synopsis" class="text-slate-300 leading-relaxed bg-slate-950/50 p-4 rounded-xl border border-slate-800/80">
+            MI5의 좌천 부서 '슬라우 하우스'의 괴짜 요원들이 런던을 뒤흔든 폭탄 테러의 배후를 추적하는 냉혹한 스파이 스릴러.
+          </p>
+        </div>
+
+        <!-- 피드백 반영 ②: 드라마 시즌 타임라인 & 정주행 체크박스 섹션 -->
+        <div id="modal-season-section" class="space-y-3 p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                <i data-lucide="layers" class="w-4 h-4 text-blue-400"></i>
+                시즌별 타임라인 및 시청 체크 (시즌 단위 추천 D-07)
+              </h3>
+              <p class="text-[11px] text-slate-400 mt-0.5">
+                내가 본 시즌을 체크하면 다음 검색 시 제외되고, 아직 안 본 신규 시즌이 우선 추천됩니다.
+              </p>
+            </div>
+            <span id="modal-trend-badge" class="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-[11px] flex items-center gap-1">
+              <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> 품질 지속 상승 (+10점)
+            </span>
+          </div>
+
+          <!-- 시즌별 목록 카드 그리드 -->
+          <div id="season-timeline-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 pt-1">
+            <!-- JS 동적 생성 -->
+          </div>
+
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-300 flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+            <span id="modal-season-advice">
+              <strong>시청 팁:</strong> 본 시리즈는 메인 스토리 라인이 긴밀하게 연결되어 있어 <strong>시즌 1부터 정주행</strong>하시는 것을 강력 추천합니다.
+            </span>
+          </div>
+        </div>
+
+        <!-- 피드백 반영 ③: 전문 유튜브 영화/드라마 줄거리 리뷰 채널 연동 (어퍼컷, 드림텔러, 무비트랩 등) -->
+        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-950/70">
+          <div class="p-4 border-b border-slate-800 flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded bg-red-600 flex items-center justify-center text-white">
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
+              </div>
+              <div>
+                <span class="font-bold text-sm text-white">전문 유튜브 줄거리 & 심층 리뷰 채널</span>
+                <span class="text-[10px] text-slate-400 block">어퍼컷 · 드림텔러 · 무비트랩 · 달콤리뷰 · 영화세상 공식 큐레이션</span>
+              </div>
+            </div>
+            
+            <!-- 스포일러 토글 버튼 -->
+            <button
+              id="spoiler-toggle-btn"
+              onclick="toggleSpoilerMode()"
+              class="px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 hover:bg-amber-500/25 transition-all text-[11px] font-semibold flex items-center gap-1.5"
+            >
+              <i id="spoiler-icon" data-lucide="eye-off" class="w-3.5 h-3.5"></i>
+              <span id="spoiler-btn-text">결말 스포일러 가림 해제</span>
+            </button>
+          </div>
+
+          <div class="p-4 space-y-3">
+            <p class="text-[11px] text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+              스포일러 방지 정책(D-02, D-04)에 따라 결말 반전이 포함된 영상은 사전 가림 처리되어 있습니다.
+            </p>
+
+            <!-- 유튜브 영상 목록 -->
+            <div id="youtube-videos-list" class="space-y-2.5">
+              <!-- JS 동적 생성 -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FOOTER CLOSE -->
+      <div class="p-4 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between">
+        <span class="text-[11px] text-slate-500">
+          Screen Intelligence Agent · Gemini 2.5 오케스트레이션
+        </span>
+        <button onclick="closeDetailModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs transition-colors">
+          닫기
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4. USAGE & BUDGET MODAL -->
+  <div id="usage-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white flex items-center gap-1.5">
+          <i data-lucide="gauge" class="w-4 h-4 text-emerald-400"></i>
+          API 사용량 및 비용 원장 (Usage Ledger)
+        </h3>
+        <button onclick="toggleUsageModal(false)" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      
+      <div class="space-y-2.5 text-xs">
+        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center">
+          <span class="text-slate-400">오늘 유료 검색 사용량</span>
+          <strong class="text-emerald-400 font-bold text-sm">1 / 10회 (잔여 9회)</strong>
+        </div>
+        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center">
+          <span class="text-slate-400">서비스 월간 Gemini 예산</span>
+          <strong class="text-blue-400 font-bold text-sm">$0.08 / $30.00</strong>
+        </div>
+        <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 text-[11px] text-slate-400 space-y-1">
+          <p class="font-semibold text-slate-300">💡 0회 과금 원칙 (무료 열람):</p>
+          <ul class="list-disc pl-4 space-y-0.5 text-slate-500">
+            <li>동일 조건 24시간 캐시 재열람 (0회)</li>
+            <li>작품 상세, 시즌 품질 추세, 스핀오프 확인 (0회)</li>
+            <li>YouTube 영상 링크 조회 (0회)</li>
+          </ul>
+        </div>
+      </div>
+
+      <button onclick="toggleUsageModal(false)" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition-colors">
+        확인 완료
+      </button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT & MOCK DATA -->
+  <script>
+    // 1. DATA FIXTURES (주제별 상위 장르 및 세부 장르 데이터)
+    const THEME_DATA = {
+      spy: {
+        parentGenre: "첩보 / 스파이 (Espionage)",
+        defaultQuery: "2026년 첩보 관련 미드나 영화 추천해줘",
+        subgenres: [
+          { id: "sub-1", name: "정보기관·정치첩보", desc: "CIA, MI6 등 국가 기관 암투", active: true },
+          { id: "sub-2", name: "액션·대테러", desc: "특수요원 테러 저지 액션", active: true },
+          { id: "sub-3", name: "잠입·이중간첩", desc: "적진 침투 및 내부 첩자 심리전", active: false },
+          { id: "sub-4", name: "사이버·기술첩보", desc: "해킹, 도청, 디지털 정보전", active: false }
+        ]
+      },
+      sf: {
+        parentGenre: "SF / 미래 과학 (Sci-Fi)",
+        defaultQuery: "우주 탐사나 인공지능 관련 명작 SF 영화/드라마",
+        subgenres: [
+          { id: "sub-1", name: "하드SF·우주탐사", desc: "성간 여행, 과학적 고증 생존기", active: true },
+          { id: "sub-2", name: "사이버펑크·AI", desc: "디스토피아, 인공지능의 반란", active: true },
+          { id: "sub-3", name: "타임슬립·평행우주", desc: "시간 역설과 멀티버스 탐험", active: false },
+          { id: "sub-4", name: "외계침공·퍼스트컨택트", desc: "지구 방위 및 미지의 외계 조우", active: false }
+        ]
+      },
+      zombie: {
+        parentGenre: "좀비 / 아포칼립스 (Apocalyptic)",
+        defaultQuery: "문명 붕괴 이후 생존 스릴러와 좀비 명작",
+        subgenres: [
+          { id: "sub-1", name: "바이러스·생존기", desc: "생존자들의 고립 및 탈출 사투", active: true },
+          { id: "sub-2", name: "포스트 아포칼립스 재건", desc: "문명 붕괴 후 군벌 간 생존 경쟁", active: true },
+          { id: "sub-3", name: "밀리터리 소탕전", desc: "특수부대의 감염자 구역 진압", active: false },
+          { id: "sub-4", name: "심리·밀실 갈등", desc: "극한 상황 속 인간 본성의 민낯", active: false }
+        ]
+      },
+      crime: {
+        parentGenre: "범죄 / 마피아 느와르 (Crime & Noir)",
+        defaultQuery: "조직 범죄와 마피아 카르텔 추적 스릴러",
+        subgenres: [
+          { id: "sub-1", name: "조직범죄·카르텔", desc: "마피아 패밀리와 마약 카르텔 암투", active: true },
+          { id: "sub-2", name: "지능형 케이퍼무비", desc: "치밀한 계획의 완전범죄 탈취극", active: true },
+          { id: "sub-3", name: "연쇄살인·프로파일링", desc: "형사와 사이코패스의 두뇌 추적", active: false },
+          { id: "sub-4", name: "법정·부패 수사", desc: "권력층 비리와 검경 내부 고발", active: false }
+        ]
+      },
+      timeslip: {
+        parentGenre: "타임슬립 / 미스터리 (Mystery & Time Loop)",
+        defaultQuery: "과거와 미래가 얽힌 타임루프 추리 명작",
+        subgenres: [
+          { id: "sub-1", name: "타임루프·반복", desc: "정해진 하루가 무한 반복되는 운명", active: true },
+          { id: "sub-2", name: "과거 회귀·나비효과", desc: "과거를 바꾸며 생겨나는 연쇄 파동", active: true },
+          { id: "sub-3", name: "기억 상실·정체성", desc: "지워진 기억과 거짓된 진실 추적", active: false },
+          { id: "sub-4", name: "밀실 미스터리", desc: "탈출 불가능한 공간 속 연쇄 사건", active: false }
+        ]
+      }
+    };
+
+    let currentThemeKey = 'spy';
+    let currentTheme = JSON.parse(JSON.stringify(THEME_DATA.spy));
+    let isSpoilerUnblinded = false;
+
+    // 작품 데이터
+    const MEDIA_ITEMS = {
+      m1: {
+        id: 'm1',
+        type: 'movie',
+        title: '미션 임파서블: 데드 레코닝',
+        origTitle: 'Mission: Impossible - Dead Reckoning Part One (2023)',
+        gradient: 'from-blue-700 via-indigo-900 to-slate-900',
+        score: '91.5',
+        subscore: { audience: 94, pop: 92, critic: 88, taste: 90 },
+        platforms: ['티빙', '웨이브', '쿠팡플레이'],
+        seasonGuide: null,
+        reason: '관객 만족도 94점과 대중적 화제성 92점의 조화. 빠른 전개와 고난도 첩보 액션 취향에 완벽 부합.',
+        synopsis: "인류를 위협하는 전지능 AI '엔티티'의 폭주를 막기 위해 에단 헌트와 IMF 팀이 두 개의 열쇠를 추적하는 글로벌 첩보전.",
+        youtubeVideos: [
+          {
+            channel: '어퍼컷',
+            badgeColor: 'bg-red-600',
+            title: '[어퍼컷] 결말까지 25분 만에 털어주는 첩보 역사상 최고의 걸작',
+            time: '24분 15초',
+            views: '182만회',
+            isSpoiler: true,
+            url: 'https://www.youtube.com/results?search_query=어퍼컷+미션임파서블+데드레코닝'
+          },
+          {
+            channel: '드림텔러',
+            badgeColor: 'bg-indigo-600',
+            title: '[드림텔러] 데드 레코닝 결말 완벽 해석: 엔티티 AI가 노린 진짜 표적',
+            time: '18분 40초',
+            views: '94만회',
+            isSpoiler: true,
+            url: 'https://www.youtube.com/results?search_query=드림텔러+데드레코닝+해석'
+          },
+          {
+            channel: '달콤리뷰',
+            badgeColor: 'bg-pink-600',
+            title: '[달콤리뷰] 톰 크루즈 형님이 목숨 걸고 찍은 미션 임파서블 하이라이트 몰아보기',
+            time: '28분 50초',
+            views: '145만회',
+            isSpoiler: false,
+            url: 'https://www.youtube.com/results?search_query=달콤리뷰+미션임파서블'
+          }
+        ]
+      },
+      m2: {
+        id: 'm2',
+        type: 'movie',
+        title: '시카리오: 암살자의 도시',
+        origTitle: 'Sicario (2015)',
+        gradient: 'from-amber-700 via-stone-900 to-slate-900',
+        score: '89.8',
+        subscore: { audience: 88, pop: 90, critic: 92, taste: 94 },
+        platforms: ['넷플릭스', '왓챠'],
+        seasonGuide: null,
+        reason: '숨 막히는 긴장감의 걸작. 국경 지대에서 펼쳐지는 현실적이고 냉혹한 대테러 첩보 취향 만족.',
+        synopsis: "사상 최악의 마약 카르텔을 소탕하기 위해 결성된 비밀 작전팀. 원칙주의 FBI 요원이 마주하는 냉혹한 정의의 경계.",
+        youtubeVideos: [
+          {
+            channel: '무비트랩',
+            badgeColor: 'bg-amber-600',
+            title: '[무비트랩] [결말포함] 숨도 못 쉬고 보게 되는 역사상 가장 완벽한 범죄 첩보 명작',
+            time: '22분 10초',
+            views: '210만회',
+            isSpoiler: true,
+            url: 'https://www.youtube.com/results?search_query=무비트랩+시카리오'
+          },
+          {
+            channel: '영화세상',
+            badgeColor: 'bg-emerald-600',
+            title: '[영화세상] 조슈 브롤린과 베니시오 델 토로의 미친 연기 대결 몰아보기',
+            time: '16분 30초',
+            views: '78만회',
+            isSpoiler: false,
+            url: 'https://www.youtube.com/results?search_query=영화세상+시카리오'
+          }
+        ]
+      },
+      m3: {
+        id: 'm3',
+        type: 'movie',
+        title: '하얼빈',
+        origTitle: 'Harbin (2024)',
+        gradient: 'from-slate-700 via-zinc-900 to-black',
+        score: '87.2',
+        subscore: { audience: 86, pop: 89, critic: 85, taste: 88 },
+        platforms: ['CGV / 메가박스 상영중'],
+        seasonGuide: null,
+        reason: '현재 국내 극장 관람 검증작(D-17). 역사적 실화 첩보 작전의 긴장감과 압도적인 미장센.',
+        synopsis: "1909년, 하나의 목적을 위해 하얼빈으로 향하는 안중근과 독립투사들의 치열한 첩보 추적 작전.",
+        youtubeVideos: [
+          {
+            channel: '드림텔러',
+            badgeColor: 'bg-indigo-600',
+            title: '[드림텔러] 영화 하얼빈 역사적 실화와 결말 총정리: 거사 직전 무슨 일이 있었나',
+            time: '19분 15초',
+            views: '112만회',
+            isSpoiler: true,
+            url: 'https://www.youtube.com/results?search_query=드림텔러+하얼빈'
+          },
+          {
+            channel: '어퍼컷',
+            badgeColor: 'bg-red-600',
+            title: '[어퍼컷] 극장 가기 전 꼭 봐야 할 하얼빈 배경 지식과 관람 포인트',
+            time: '12분 40초',
+            views: '88만회',
+            isSpoiler: false,
+            url: 'https://www.youtube.com/results?search_query=어퍼컷+하얼빈'
+          }
+        ]
+      },
+      s1: {
+        id: 's1',
+        type: 'series',
+        title: '슬로 호시스 (시즌 4)',
+        origTitle: 'Slow Horses Season 4 (2024)',
+        gradient: 'from-emerald-800 via-teal-950 to-slate-900',
+        score: '93.4',
+        subscore: { audience: 96, pop: 91, critic: 95, taste: 92 },
+        platforms: ['Apple TV+'],
+        seasonLabel: '시즌 4 강력 추천',
+        seasonGuide: {
+          badge: '🚨 시즌 1부터 정주행 추천 (스토리 연속성 높음)',
+          type: 'continuous',
+          advice: '등장인물 간의 관계와 과거 서사가 긴밀하게 연결되어 있어, 시즌 1부터 정주행하셔야 진정한 카타르시스를 느끼실 수 있습니다.',
+          trend: '품질 지속 상승세 (+10점 상승)',
+          seasons: [
+            { season: 1, year: '2022.04', episodes: '6부작', score: 86, watched: true, desc: '슬라우 하우스 좌천 요원들의 납치극 구출 작전' },
+            { season: 2, year: '2022.12', episodes: '6부작', score: 89, watched: true, desc: '냉전 시절 수면 간첩들의 런던 기습 사건' },
+            { season: 3, year: '2023.11', episodes: '6부작', score: 91, watched: false, desc: '이스탄불 비밀 시설 침투 및 MI5 내부 음모' },
+            { season: 4, year: '2024.09', episodes: '6부작', score: 96, watched: false, isCurrentTarget: true, desc: '런던 중심가 폭탄 테러와 잭슨 램의 과거 폭로' }
+          ]
+        },
+        reason: '시즌을 거듭할수록 평점 상승(+10점). 블랙 코미디와 진중한 정통 첩보 스릴러의 압도적 완성도.',
+        synopsis: "MI5의 좌천 부서 '슬라우 하우스'의 괴짜 요원들이 런던을 뒤흔든 폭탄 테러의 배후를 추적하는 냉혹한 스파이 스릴러.",
+        youtubeVideos: [
+          {
+            channel: '어퍼컷',
+            badgeColor: 'bg-red-600',
+            title: '[어퍼컷] 결말까지 30분 만에 털어주는 애플TV 최고의 첩보 명작 슬로 호시스 전 시즌 요약',
+            time: '29분 45초',
+            views: '167만회',
+            isSpoiler: true,
+            url: 'https://www.youtube.com/results?search_query=어퍼컷+슬로호시스'
+          },
+          {
+            channel: '드림텔러',
+            badgeColor: 'bg-indigo-600',
+            title: '[드림텔러] 슬로 호시스 결말 해석: 게리 올드만이 감춘 충격적인 과거와 MI5 수뇌부의 배신',
+            time: '21분 30초',
+            views: '83만회',
+            isSpoiler: true,
+            url: 'https://www.youtube.com/results?search_query=드림텔러+슬로호시스+해석'
+          },
+          {
+            channel: '달콤리뷰',
+            badgeColor: 'bg-pink-600',
+            title: '[달콤리뷰] 밥 먹을 때 보면 시간 순삭되는 웰메이드 스파이물 몰아보기 (시즌 1~3)',
+            time: '34분 10초',
+            views: '120만회',
+            isSpoiler: true,
+            url: 'https://www.youtube.com/results?search_query=달콤리뷰+슬로호시스'
+          }
+        ]
+      },
+      s2: {
+        id: 's2',
+        type: 'series',
+        title: '나이트 에이전트 (시즌 2)',
+        origTitle: 'The Night Agent Season 2 (2025)',
+        gradient: 'from-red-800 via-rose-950 to-slate-900',
+        score: '88.9',
+        subscore: { audience: 89, pop: 93, critic: 82, taste: 90 },
+        platforms: ['넷플릭스'],
+        seasonLabel: '시즌 2 추천',
+        seasonGuide: {
+          badge: '✨ 독립 에피소드 중심 (시즌 2 바로 감상 가능)',
+          type: 'standalone',
+          advice: '새로운 첩보 임무가 주축이므로 시즌 1을 보지 않으셔도 줄거리 이해에 무리가 없습니다.',
+          trend: '높은 글로벌 흥행 유지',
+          seasons: [
+            { season: 1, year: '2023.03', episodes: '10부작', score: 87, watched: true, desc: '백악관 지하 비밀 전화기를 지키는 FBI 요원 피터' },
+            { season: 2, year: '2025.01', episodes: '10부작', score: 89, watched: false, isCurrentTarget: true, desc: '정식 야간 요원이 된 피터의 방콕 첩보 작전' }
+          ]
+        },
+        reason: '글로벌 넷플릭스 흥행 1위작. 멈출 수 없는 폭풍 전개와 빠른 사건 해결로 몰입감 극대화.',
+        synopsis: "백악관 지하의 비밀 핫라인을 담당하던 FBI 요원이 전 세계를 위협하는 거대한 음모에 휘말리며 펼쳐지는 액션 스릴러.",
+        youtubeVideos: [
+          {
+            channel: '무비트랩',
+            badgeColor: 'bg-amber-600',
+            title: '[무비트랩] [결말포함] 넷플릭스 1위 찍자마자 난리 난 스파이 미드 나이트 에이전트 몰아보기',
+            time: '32분 50초',
+            views: '240만회',
+            isSpoiler: true,
+            url: 'https://www.youtube.com/results?search_query=무비트랩+나이트에이전트'
+          },
+          {
+            channel: '영화세상',
+            badgeColor: 'bg-emerald-600',
+            title: '[영화세상] 1화 틀자마자 밤새워서 다 보게 되는 미친 속도감의 첩보 수사물',
+            time: '18분 40초',
+            views: '92만회',
+            isSpoiler: false,
+            url: 'https://www.youtube.com/results?search_query=영화세상+나이트에이전트'
+          }
+        ]
+      }
+    };
+
+    // 2. 초기 렌더링 함수
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSubgenrePanel();
+      renderCards();
+      lucide.createIcons();
+    });
+
+    // 3. 주제 선택 및 장르 동적 변경 (피드백 반영 ①)
+    function selectThemePreset(key) {
+      if (!THEME_DATA[key]) return;
+      currentThemeKey = key;
+      currentTheme = JSON.parse(JSON.stringify(THEME_DATA[key]));
+      document.getElementById('query-input').value = currentTheme.defaultQuery;
+      
+      // 상위 장르 배너 변경
+      const parentBadge = document.getElementById('detected-parent-genre');
+      parentBadge.innerHTML = `<i data-lucide="tag" class="w-3 h-3 text-blue-400"></i> ${currentTheme.parentGenre}`;
+      
+      // 세부 장르 4개 재렌더링
+      renderSubgenrePanel();
+      lucide.createIcons();
+    }
+
+    function handleSearchInput() {
+      const q = document.getElementById('query-input').value.toLowerCase();
+      if (q.includes('우주') || q.includes('sf') || q.includes('인공지능') || q.includes('미래')) {
+        selectThemePreset('sf');
+      } else if (q.includes('좀비') || q.includes('아포칼립스') || q.includes('바이러스') || q.includes('멸망')) {
+        selectThemePreset('zombie');
+      } else if (q.includes('마피아') || q.includes('범죄') || q.includes('카르텔') || q.includes('느와르')) {
+        selectThemePreset('crime');
+      } else if (q.includes('타임') || q.includes('시간') || q.includes('루프') || q.includes('미스터리')) {
+        selectThemePreset('timeslip');
+      } else {
+        selectThemePreset('spy');
+      }
+    }
+
+    function renderSubgenrePanel() {
+      const grid = document.getElementById('subgenre-grid');
+      let html = '';
+      let activeCount = 0;
+
+      currentTheme.subgenres.forEach((sub, idx) => {
+        if (sub.active) activeCount++;
+        const cardClass = sub.active ? 'genre-chip-active' : 'genre-chip-inactive';
+        const checkIcon = sub.active ? '<i data-lucide="check" class="w-3.5 h-3.5 text-blue-400"></i>' : '';
+        
+        html += `
+          <div onclick="toggleSubgenre(${idx})" class="p-3 rounded-xl border ${cardClass} cursor-pointer transition-all duration-200 hover:border-blue-400/50">
+            <div class="flex items-center justify-between font-bold text-xs">
+              <span>${sub.name}</span>
+              ${checkIcon}
+            </div>
+            <p class="text-[10px] text-slate-400 mt-1 line-clamp-1">${sub.desc}</p>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = html;
+      document.getElementById('selected-subgenre-count').innerText = activeCount;
+      lucide.createIcons();
+    }
+
+    function toggleSubgenre(index) {
+      currentTheme.subgenres[index].active = !currentTheme.subgenres[index].active;
+      renderSubgenrePanel();
+    }
+
+    function selectAllSubgenres() {
+      currentTheme.subgenres.forEach(s => s.active = true);
+      renderSubgenrePanel();
+    }
+
+    // 4. 영화 및 미드 카드 렌더링 (피드백 반영 ② 시즌 배지 강조)
+    function renderCards() {
+      // 영화
+      const moviesBox = document.getElementById('movies-container');
+      moviesBox.innerHTML = `
+        ${createMovieCard(MEDIA_ITEMS.m1, 1)}
+        ${createMovieCard(MEDIA_ITEMS.m2, 2)}
+        ${createMovieCard(MEDIA_ITEMS.m3, 3, true)}
+      `;
+
+      // 드라마
+      const seriesBox = document.getElementById('series-container');
+      seriesBox.innerHTML = `
+        ${createSeriesCard(MEDIA_ITEMS.s1, 1)}
+        ${createSeriesCard(MEDIA_ITEMS.s2, 2)}
+      `;
+    }
+
+    function createMovieCard(item, rank, isCinema = false) {
+      return `
+        <article onclick="openDetailModal('${item.id}')" class="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between relative">
+          <div id="badge-watched-${item.id}" class="hidden absolute top-3 right-3 z-20 px-2 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-semibold backdrop-blur-md flex items-center gap-1">
+            <i data-lucide="check" class="w-3 h-3"></i> 시청 완료 (다음 검색 제외)
+          </div>
+
+          <div>
+            <div class="h-28 w-full bg-gradient-to-tr ${item.gradient} p-4 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="w-7 h-7 rounded-lg bg-black/60 backdrop-blur-md flex items-center justify-center text-white text-xs font-black shadow">#${rank}</span>
+                ${isCinema ? `
+                  <span class="px-2 py-0.5 rounded-full bg-amber-500/30 text-amber-300 text-[10px] font-semibold flex items-center gap-1 backdrop-blur-md border border-amber-500/40">
+                    <i data-lucide="ticket" class="w-3 h-3"></i> 국내 극장 상영중
+                  </span>
+                ` : `
+                  <span class="px-2 py-0.5 rounded-full bg-black/50 text-white/90 text-[10px] font-semibold flex items-center gap-1 backdrop-blur-md">
+                    <i data-lucide="film" class="w-3 h-3 text-amber-400"></i> 영화
+                  </span>
+                `}
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white tracking-tight group-hover:text-blue-300 transition-colors">${item.title}</h3>
+                <p class="text-[11px] text-white/70 italic">${item.origTitle}</p>
+              </div>
+            </div>
+
+            <div class="p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="px-2.5 py-1 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-bold text-xs flex items-center gap-1.5">
+                  <i data-lucide="award" class="w-4 h-4"></i>
+                  <span>P-GSEI ${item.score}</span>
+                </div>
+                <span class="text-[11px] text-slate-400 flex items-center gap-1">
+                  <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-400"></i> 신뢰도 High
+                </span>
+              </div>
+
+              <!-- 40/40/10/10 -->
+              <div class="grid grid-cols-4 gap-1 text-[10px] text-center">
+                <div class="bg-slate-950/70 border border-slate-800 p-1 rounded">
+                  <span class="text-slate-500 block text-[9px]">관객 40%</span>
+                  <strong class="text-slate-200">${item.subscore.audience}</strong>
+                </div>
+                <div class="bg-slate-950/70 border border-slate-800 p-1 rounded">
+                  <span class="text-slate-500 block text-[9px]">인기 40%</span>
+                  <strong class="text-slate-200">${item.subscore.pop}</strong>
+                </div>
+                <div class="bg-slate-950/70 border border-slate-800 p-1 rounded">
+                  <span class="text-slate-500 block text-[9px]">평론 10%</span>
+                  <strong class="text-slate-200">${item.subscore.critic}</strong>
+                </div>
+                <div class="bg-slate-950/70 border border-slate-800 p-1 rounded">
+                  <span class="text-slate-500 block text-[9px]">취향 10%</span>
+                  <strong class="text-slate-200">${item.subscore.taste}</strong>
+                </div>
+              </div>
+
+              <!-- Platforms -->
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[11px] text-slate-400">시청처:</span>
+                ${item.platforms.map(p => `
+                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-medium border border-slate-700">${p}</span>
+                `).join('')}
+              </div>
+
+              <!-- Reason -->
+              <p class="text-xs text-slate-300 bg-slate-950/50 p-2.5 rounded-lg border border-slate-800/80 leading-relaxed">
+                <strong class="text-blue-400 block mb-0.5 text-[11px]">추천 이유:</strong>
+                ${item.reason}
+              </p>
+            </div>
+          </div>
+
+          <div class="p-4 pt-0" onclick="event.stopPropagation()">
+            <div class="pt-2 border-t border-slate-800/60 flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <button id="btn-watched-${item.id}" onclick="toggleWatched('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-all">
+                  봤음
+                </button>
+                <button onclick="toggleWishlist('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <button onclick="markNotInterested('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-500 hover:text-amber-400 transition-all">
+                  <i data-lucide="ban" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <span class="text-[10px] text-slate-500">상세 & 유튜브 보기 →</span>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function createSeriesCard(item, rank) {
+      return `
+        <article onclick="openDetailModal('${item.id}')" class="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between relative">
+          <div>
+            <div class="h-28 w-full bg-gradient-to-tr ${item.gradient} p-4 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="w-7 h-7 rounded-lg bg-black/60 backdrop-blur-md flex items-center justify-center text-white text-xs font-black shadow">#${rank}</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30 backdrop-blur-md">
+                  ${item.seasonLabel}
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white tracking-tight group-hover:text-blue-300 transition-colors">${item.title}</h3>
+                <p class="text-[11px] text-white/70 italic">${item.origTitle}</p>
+              </div>
+            </div>
+
+            <div class="p-4 space-y-3">
+              <!-- 시즌 정주행 안내 배지 (피드백 반영 ②) -->
+              <div class="p-2 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] flex items-center gap-1.5 text-slate-300">
+                <i data-lucide="info" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+                <span class="truncate">${item.seasonGuide.badge}</span>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div class="px-2.5 py-1 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-bold text-xs flex items-center gap-1.5">
+                  <i data-lucide="award" class="w-4 h-4"></i>
+                  <span>P-GSEI ${item.score}</span>
+                </div>
+                <span class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
+                  <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> ${item.seasonGuide.trend}
+                </span>
+              </div>
+
+              <!-- 40/40/10/10 -->
+              <div class="grid grid-cols-4 gap-1 text-[10px] text-center">
+                <div class="bg-slate-950/70 border border-slate-800 p-1 rounded">
+                  <span class="text-slate-500 block text-[9px]">관객 40%</span>
+                  <strong class="text-slate-200">${item.subscore.audience}</strong>
+                </div>
+                <div class="bg-slate-950/70 border border-slate-800 p-1 rounded">
+                  <span class="text-slate-500 block text-[9px]">인기 40%</span>
+                  <strong class="text-slate-200">${item.subscore.pop}</strong>
+                </div>
+                <div class="bg-slate-950/70 border border-slate-800 p-1 rounded">
+                  <span class="text-slate-500 block text-[9px]">평론 10%</span>
+                  <strong class="text-slate-200">${item.subscore.critic}</strong>
+                </div>
+                <div class="bg-slate-950/70 border border-slate-800 p-1 rounded">
+                  <span class="text-slate-500 block text-[9px]">취향 10%</span>
+                  <strong class="text-slate-200">${item.subscore.taste}</strong>
+                </div>
+              </div>
+
+              <!-- Platforms -->
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[11px] text-slate-400">시청처:</span>
+                ${item.platforms.map(p => `
+                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-medium border border-slate-700">${p}</span>
+                `).join('')}
+              </div>
+
+              <!-- Reason -->
+              <p class="text-xs text-slate-300 bg-slate-950/50 p-2.5 rounded-lg border border-slate-800/80 leading-relaxed">
+                <strong class="text-blue-400 block mb-0.5 text-[11px]">추천 이유:</strong>
+                ${item.reason}
+              </p>
+            </div>
+          </div>
+
+          <div class="p-4 pt-0" onclick="event.stopPropagation()">
+            <div class="pt-2 border-t border-slate-800/60 flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <button class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-all">
+                  시즌 체크
+                </button>
+                <button onclick="toggleWishlist('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <button onclick="markNotInterested('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-500 hover:text-amber-400 transition-all">
+                  <i data-lucide="ban" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <span class="text-[10px] text-slate-500">시즌별 세부 & 요약 →</span>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // 5. 상세 모달 열기 및 세부 구현 (피드백 ② 시즌 리스트 & ③ 전문 유튜브 채널 연동)
+    function openDetailModal(id) {
+      const item = MEDIA_ITEMS[id];
+      if (!item) return;
+
+      const modal = document.getElementById('detail-modal');
+      const hero = document.getElementById('modal-hero');
+      const title = document.getElementById('modal-title');
+      const sub = document.getElementById('modal-sub');
+      const score = document.getElementById('modal-score');
+      const synopsis = document.getElementById('modal-synopsis');
+      const platforms = document.getElementById('modal-platforms');
+      const kindBadge = document.getElementById('modal-kind-badge');
+      const guideBadge = document.getElementById('modal-season-guide-badge');
+      const seasonSection = document.getElementById('modal-season-section');
+
+      // Reset Hero
+      hero.className = `w-full h-44 bg-gradient-to-r ${item.gradient} p-6 flex flex-col justify-end relative`;
+      title.innerText = item.title;
+      sub.innerText = item.origTitle;
+      score.innerText = item.score;
+      synopsis.innerText = item.synopsis;
+
+      // Platform Badges
+      platforms.innerHTML = item.platforms.map(p => `
+        <span class="px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-300 font-medium">
+          ${p} (국내 정식 서비스)
+        </span>
+      `).join('');
+
+      // Series or Movie specific
+      if (item.type === 'series') {
+        kindBadge.innerText = '드라마 · 시리즈';
+        guideBadge.classList.remove('hidden');
+        guideBadge.innerText = item.seasonGuide.badge;
+        seasonSection.classList.remove('hidden');
+
+        document.getElementById('modal-season-advice').innerHTML = `
+          <strong>시청 팁:</strong> ${item.seasonGuide.advice}
+        `;
+        document.getElementById('modal-trend-badge').innerText = item.seasonGuide.trend;
+
+        // Render Season List
+        const seasonBox = document.getElementById('season-timeline-list');
+        seasonBox.innerHTML = item.seasonGuide.seasons.map((s, idx) => `
+          <div class="p-3 rounded-xl border ${s.isCurrentTarget ? 'border-emerald-500/40 bg-emerald-500/10' : 'border-slate-800 bg-slate-950/70'} flex flex-col justify-between space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs ${s.isCurrentTarget ? 'text-emerald-300' : 'text-slate-200'}">
+                시즌 ${s.season} ${s.isCurrentTarget ? '(추천작)' : ''}
+              </span>
+              <span class="text-[10px] font-bold ${s.score >= 90 ? 'text-blue-400' : 'text-slate-400'}">
+                ${s.score}점
+              </span>
+            </div>
+            <p class="text-[10px] text-slate-400 line-clamp-2">${s.desc}</p>
+            <div class="flex items-center justify-between pt-1 border-t border-slate-800/80 text-[10px]">
+              <span class="text-slate-500">${s.year} · ${s.episodes}</span>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input
+                  type="checkbox"
+                  ${s.watched ? 'checked' : ''}
+                  onchange="toggleSeasonWatch('${item.id}', ${idx})"
+                  class="rounded bg-slate-900 border-slate-700 text-blue-600 focus:ring-0 w-3.5 h-3.5 cursor-pointer"
+                />
+                <span class="${s.watched ? 'text-emerald-400 font-semibold' : 'text-slate-400'}">
+                  ${s.watched ? '시청완료' : '미시청'}
+                </span>
+              </label>
+            </div>
+          </div>
+        `).join('');
+
+      } else {
+        kindBadge.innerText = '영화';
+        guideBadge.classList.add('hidden');
+        seasonSection.classList.add('hidden');
+      }
+
+      // Render Curated YouTube Videos (피드백 반영 ③)
+      renderYouTubeSection(item.youtubeVideos);
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeDetailModal() {
+      document.getElementById('detail-modal').classList.add('hidden');
+    }
+
+    function toggleSeasonWatch(mediaId, seasonIdx) {
+      const item = MEDIA_ITEMS[mediaId];
+      if (item && item.seasonGuide && item.seasonGuide.seasons[seasonIdx]) {
+        item.seasonGuide.seasons[seasonIdx].watched = !item.seasonGuide.seasons[seasonIdx].watched;
+        openDetailModal(mediaId); // refresh modal
+      }
+    }
+
+    // 6. 전문 유튜브 리뷰 채널 렌더링 & 스포일러 토글 (피드백 반영 ③)
+    function renderYouTubeSection(videos) {
+      const container = document.getElementById('youtube-videos-list');
+      if (!videos || videos.length === 0) {
+        container.innerHTML = '<p class="text-slate-500 text-xs">등록된 관련 유튜브 리뷰 영상이 없습니다.</p>';
+        return;
+      }
+
+      container.innerHTML = videos.map((v, i) => `
+        <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-slate-700 transition-colors">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold text-white ${v.badgeColor}">
+                ${v.channel}
+              </span>
+              <span class="text-[10px] text-slate-400">조회수 ${v.views} · ${v.time}</span>
+              ${v.isSpoiler ? `
+                <span class="px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-300 text-[9px] border border-amber-500/20">
+                  결말 포함
+                </span>
+              ` : ''}
+            </div>
+            <h4 class="font-semibold text-xs text-slate-200 ${v.isSpoiler && !isSpoilerUnblinded ? 'spoiler-blur' : ''}">
+              ${v.title}
+            </h4>
+          </div>
+
+          <div class="shrink-0 flex items-center gap-2">
+            ${v.isSpoiler && !isSpoilerUnblinded ? `
+              <button onclick="toggleSpoilerMode()" class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 text-xs font-semibold flex items-center gap-1 border border-amber-500/30">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i> 스포일러 보기
+              </button>
+            ` : `
+              <a
+                href="${v.url}"
+                target="_blank"
+                class="px-3.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow"
+              >
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
+                YouTube 시청
+              </a>
+            `}
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function toggleSpoilerMode() {
+      isSpoilerUnblinded = !isSpoilerUnblinded;
+      const btnText = document.getElementById('spoiler-btn-text');
+      const icon = document.getElementById('spoiler-icon');
+      
+      if (isSpoilerUnblinded) {
+        btnText.innerText = '스포일러 다시 가리기';
+        icon.setAttribute('data-lucide', 'eye');
+      } else {
+        btnText.innerText = '결말 스포일러 가림 해제';
+        icon.setAttribute('data-lucide', 'eye-off');
+      }
+
+      // Re-render currently opened modal's videos
+      const title = document.getElementById('modal-title').innerText;
+      let activeItem = Object.values(MEDIA_ITEMS).find(m => m.title === title || title.startsWith(m.title));
+      if (activeItem) {
+        renderYouTubeSection(activeItem.youtubeVideos);
+      }
+      lucide.createIcons();
+    }
+
+    // 7. 기타 UI 인터랙션
+    function switchTab(tab) {
+      if (tab === 'search') {
+        document.getElementById('search-view').classList.remove('hidden');
+        document.getElementById('wishlist-view').classList.add('hidden');
+        document.getElementById('tab-search-btn').className = 'px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800 text-white transition-colors';
+        document.getElementById('tab-wishlist-btn').className = 'px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1.5';
+      } else {
+        document.getElementById('search-view').classList.add('hidden');
+        document.getElementById('wishlist-view').classList.remove('hidden');
+        document.getElementById('tab-search-btn').className = 'px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-colors';
+        document.getElementById('tab-wishlist-btn').className = 'px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800 text-white transition-colors flex items-center gap-1.5';
+      }
+    }
+
+    function toggleWatched(id) {
+      const badge = document.getElementById(`badge-watched-${id}`);
+      const btn = document.getElementById(`btn-watched-${id}`);
+      if (badge.classList.contains('hidden')) {
+        badge.classList.remove('hidden');
+        btn.innerText = '봤음 ✓';
+        btn.className = 'px-3 py-1.5 rounded-lg bg-emerald-500 text-white text-xs font-semibold shadow';
+      } else {
+        badge.classList.add('hidden');
+        btn.innerText = '봤음';
+        btn.className = 'px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-all';
+      }
+      lucide.createIcons();
+    }
+
+    function toggleWishlist(id) {
+      alert('찜 상태가 변경되었습니다. 상단 [찜 목록] 탭에서 확인하실 수 있습니다.');
+    }
+
+    function markNotInterested(id) {
+      alert('[관심 없음 등록]\n해당 작품(시리즈 전체)은 향후 모든 추천 결과에서 영구 제외됩니다 (D-32).');
+    }
+
+    function toggleUsageModal(show) {
+      const el = document.getElementById('usage-modal');
+      if (show) el.classList.remove('hidden');
+      else el.classList.add('hidden');
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

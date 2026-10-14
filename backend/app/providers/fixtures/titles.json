@@ -1,0 +1,81 @@
+[
+  {
+    "media_id": "m-001",
+    "kind": "movie",
+    "title_ko": "미션 임파서블: 데드 레코닝",
+    "title_en": "Mission: Impossible - Dead Reckoning Part One",
+    "release_year": 2023,
+    "synopsis": "인류를 위협하는 전지능 AI '엔티티'의 폭주를 막기 위해 에단 헌트와 IMF 팀이 두 개의 열쇠를 추적하는 글로벌 첩보전.",
+    "genres": ["spy", "action"],
+    "subgenres": ["action_counterterror", "cyber_tech"],
+    "canonical_status": "VERIFIED"
+  },
+  {
+    "media_id": "m-002",
+    "kind": "movie",
+    "title_ko": "시카리오: 암살자의 도시",
+    "title_en": "Sicario",
+    "release_year": 2015,
+    "synopsis": "사상 최악의 마약 카르텔을 소탕하기 위해 결성된 비밀 작전팀. 원칙주의 FBI 요원이 마주하는 냉혹한 정의의 경계.",
+    "genres": ["spy", "thriller", "action"],
+    "subgenres": ["intelligence_politics", "covert_mole"],
+    "canonical_status": "VERIFIED"
+  },
+  {
+    "media_id": "m-003",
+    "kind": "movie",
+    "title_ko": "하얼빈",
+    "title_en": "Harbin",
+    "release_year": 2024,
+    "synopsis": "1909년, 하나의 목적을 위해 하얼빈으로 향하는 안중근과 독립투사들의 치열한 첩보 추적 작전.",
+    "genres": ["spy", "action", "history"],
+    "subgenres": ["intelligence_politics", "action_counterterror"],
+    "canonical_status": "VERIFIED"
+  },
+  {
+    "media_id": "s-001",
+    "kind": "series",
+    "title_ko": "슬로 호시스 (시즌 4)",
+    "title_en": "Slow Horses Season 4",
+    "release_year": 2024,
+    "synopsis": "MI5의 좌천 부서 '슬라우 하우스'의 괴짜 요원들이 런던을 뒤흔든 폭탄 테러의 배후를 추적하는 냉혹한 스파이 스릴러.",
+    "season_label": "시즌 4 강력 추천",
+    "season_guide": {
+      "badge": "🚨 시즌 1부터 정주행 추천 (스토리 연속성 높음)",
+      "type": "continuous",
+      "advice": "등장인물 간의 관계와 과거 서사가 긴밀하게 연결되어 있어, 시즌 1부터 정주행하셔야 진정한 카타르시스를 느끼실 수 있습니다.",
+      "trend": "품질 지속 상승세 (+10점 상승)",
+      "seasons": [
+        { "season": 1, "year": "2022.04", "episodes": "6부작", "score": 86, "watched": true, "desc": "슬라우 하우스 좌천 요원들의 납치극 구출 작전" },
+        { "season": 2, "year": "2022.12", "episodes": "6부작", "score": 89, "watched": true, "desc": "냉전 시절 수면 간첩들의 런던 기습 사건" },
+        { "season": 3, "year": "2023.11", "episodes": "6부작", "score": 91, "watched": false, "desc": "이스탄불 비밀 시설 침투 및 MI5 내부 음모" },
+        { "season": 4, "year": "2024.09", "episodes": "6부작", "score": 96, "watched": false, "is_current_target": true, "desc": "런던 중심가 폭탄 테러와 잭슨 램의 과거 폭로" }
+      ]
+    },
+    "genres": ["spy", "thriller", "comedy"],
+    "subgenres": ["intelligence_politics", "covert_mole"],
+    "canonical_status": "VERIFIED"
+  },
+  {
+    "media_id": "s-002",
+    "kind": "series",
+    "title_ko": "나이트 에이전트 (시즌 2)",
+    "title_en": "The Night Agent Season 2",
+    "release_year": 2025,
+    "synopsis": "백악관 지하의 비밀 핫라인을 담당하던 FBI 요원이 전 세계를 위협하는 거대한 음모에 휘말리며 펼쳐지는 액션 스릴러.",
+    "season_label": "시즌 2 추천",
+    "season_guide": {
+      "badge": "✨ 독립 에피소드 중심 (시즌 2 바로 감상 가능)",
+      "type": "standalone",
+      "advice": "새로운 첩보 임무가 주축이므로 시즌 1을 보지 않으셔도 줄거리 이해에 무리가 없습니다.",
+      "trend": "높은 글로벌 흥행 유지",
+      "seasons": [
+        { "season": 1, "year": "2023.03", "episodes": "10부작", "score": 87, "watched": true, "desc": "백악관 지하 비밀 전화기를 지키는 FBI 요원 피터" },
+        { "season": 2, "year": "2025.01", "episodes": "10부작", "score": 89, "watched": false, "is_current_target": true, "desc": "정식 야간 요원이 된 피터의 방콕 첩보 작전" }
+      ]
+    },
+    "genres": ["spy", "action", "thriller"],
+    "subgenres": ["action_counterterror", "intelligence_politics"],
+    "canonical_status": "VERIFIED"
+  }
+]

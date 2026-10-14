@@ -1,0 +1,132 @@
+{
+  "m-001": [
+    {
+      "channel": "어퍼컷",
+      "badge_color": "bg-red-600",
+      "title": "[어퍼컷] 결말까지 25분 만에 털어주는 첩보 역사상 최고의 걸작",
+      "time": "24분 15초",
+      "views": "182만회",
+      "subscribers": "구독자 108만명",
+      "is_spoiler": true,
+      "url": "https://www.youtube.com/results?search_query=어퍼컷+미션임파서블+데드레코닝"
+    },
+    {
+      "channel": "드림텔러",
+      "badge_color": "bg-indigo-600",
+      "title": "[드림텔러] 데드 레코닝 결말 완벽 해석: 엔티티 AI가 노린 진짜 표적",
+      "time": "18분 40초",
+      "views": "94만회",
+      "subscribers": "구독자 85만명",
+      "is_spoiler": true,
+      "url": "https://www.youtube.com/results?search_query=드림텔러+데드레코닝+해석"
+    },
+    {
+      "channel": "달콤리뷰",
+      "badge_color": "bg-pink-600",
+      "title": "[달콤리뷰] 톰 크루즈 형님이 목숨 걸고 찍은 미션 임파서블 하이라이트 몰아보기",
+      "time": "28분 50초",
+      "views": "145만회",
+      "subscribers": "구독자 72만명",
+      "is_spoiler": false,
+      "url": "https://www.youtube.com/results?search_query=달콤리뷰+미션임파서블"
+    }
+  ],
+  "m-002": [
+    {
+      "channel": "무비트랩",
+      "badge_color": "bg-amber-600",
+      "title": "[무비트랩] [결말포함] 숨도 못 쉬고 보게 되는 역사상 가장 완벽한 범죄 첩보 명작",
+      "time": "22분 10초",
+      "views": "210만회",
+      "subscribers": "구독자 125만명",
+      "is_spoiler": true,
+      "url": "https://www.youtube.com/results?search_query=무비트랩+시카리오"
+    },
+    {
+      "channel": "영화세상",
+      "badge_color": "bg-emerald-600",
+      "title": "[영화세상] 조슈 브롤린과 베니시오 델 토로의 미친 연기 대결 몰아보기",
+      "time": "16분 30초",
+      "views": "78만회",
+      "subscribers": "구독자 54만명",
+      "is_spoiler": false,
+      "url": "https://www.youtube.com/results?search_query=영화세상+시카리오"
+    }
+  ],
+  "m-003": [
+    {
+      "channel": "드림텔러",
+      "badge_color": "bg-indigo-600",
+      "title": "[드림텔러] 영화 하얼빈 역사적 실화와 결말 총정리: 거사 직전 무슨 일이 있었나",
+      "time": "19분 15초",
+      "views": "112만회",
+      "subscribers": "구독자 85만명",
+      "is_spoiler": true,
+      "url": "https://www.youtube.com/results?search_query=드림텔러+하얼빈"
+    },
+    {
+      "channel": "어퍼컷",
+      "badge_color": "bg-red-600",
+      "title": "[어퍼컷] 극장 가기 전 꼭 봐야 할 하얼빈 배경 지식과 관람 포인트",
+      "time": "12분 40초",
+      "views": "88만회",
+      "subscribers": "구독자 108만명",
+      "is_spoiler": false,
+      "url": "https://www.youtube.com/results?search_query=어퍼컷+하얼빈"
+    }
+  ],
+  "s-001": [
+    {
+      "channel": "어퍼컷",
+      "badge_color": "bg-red-600",
+      "title": "[어퍼컷] 결말까지 30분 만에 털어주는 애플TV 최고의 첩보 명작 슬로 호시스 전 시즌 요약",
+      "time": "29분 45초",
+      "views": "167만회",
+      "subscribers": "구독자 108만명",
+      "is_spoiler": true,
+      "url": "https://www.youtube.com/results?search_query=어퍼컷+슬로호시스"
+    },
+    {
+      "channel": "드림텔러",
+      "badge_color": "bg-indigo-600",
+      "title": "[드림텔러] 슬로 호시스 결말 해석: 게리 올드만이 감춘 충격적인 과거와 MI5 수뇌부의 배신",
+      "time": "21분 30초",
+      "views": "83만회",
+      "subscribers": "구독자 85만명",
+      "is_spoiler": true,
+      "url": "https://www.youtube.com/results?search_query=드림텔러+슬로호시스+해석"
+    },
+    {
+      "channel": "달콤리뷰",
+      "badge_color": "bg-pink-600",
+      "title": "[달콤리뷰] 밥 먹을 때 보면 시간 순삭되는 웰메이드 스파이물 몰아보기 (시즌 1~3)",
+      "time": "34분 10초",
+      "views": "120만회",
+      "subscribers": "구독자 72만명",
+      "is_spoiler": true,
+      "url": "https://www.youtube.com/results?search_query=달콤리뷰+슬로호시스"
+    }
+  ],
+  "s-002": [
+    {
+      "channel": "무비트랩",
+      "badge_color": "bg-amber-600",
+      "title": "[무비트랩] [결말포함] 넷플릭스 1위 찍자마자 난리 난 스파이 미드 나이트 에이전트 몰아보기",
+      "time": "32분 50초",
+      "views": "240만회",
+      "subscribers": "구독자 125만명",
+      "is_spoiler": true,
+      "url": "https://www.youtube.com/results?search_query=무비트랩+나이트에이전트"
+    },
+    {
+      "channel": "영화세상",
+      "badge_color": "bg-emerald-600",
+      "title": "[영화세상] 1화 틀자마자 밤새워서 다 보게 되는 미친 속도감의 첩보 수사물",
+      "time": "18분 40초",
+      "views": "92만회",
+      "subscribers": "구독자 54만명",
+      "is_spoiler": false,
+      "url": "https://www.youtube.com/results?search_query=영화세상+나이트에이전트"
+    }
+  ]
+}

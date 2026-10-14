@@ -1,0 +1,35 @@
+{
+  "m-001": {
+    "imdb": { "score": 7.7, "votes": 250000, "normalized_100": 77.0 },
+    "rt_audience": { "score": 94, "votes": 10000, "normalized_100": 94.0 },
+    "tmdb": { "score": 7.6, "votes": 3500, "normalized_100": 76.0 },
+    "metacritic": { "score": 81, "normalized_100": 81.0 },
+    "popularity_score": 92.0
+  },
+  "m-002": {
+    "imdb": { "score": 7.7, "votes": 480000, "normalized_100": 77.0 },
+    "rt_audience": { "score": 85, "votes": 50000, "normalized_100": 85.0 },
+    "tmdb": { "score": 7.6, "votes": 8500, "normalized_100": 76.0 },
+    "metacritic": { "score": 82, "normalized_100": 82.0 },
+    "popularity_score": 90.0
+  },
+  "m-003": {
+    "imdb": { "score": 7.1, "votes": 1200, "normalized_100": 71.0 },
+    "rt_audience": null,
+    "tmdb": { "score": 7.2, "votes": 150, "normalized_100": 72.0 },
+    "metacritic": null,
+    "popularity_score": 89.0
+  },
+  "s-001": {
+    "imdb": { "score": 8.3, "votes": 85000, "normalized_100": 83.0 },
+    "rt_audience": { "score": 96, "votes": 5000, "normalized_100": 96.0 },
+    "metacritic": { "score": 85, "normalized_100": 85.0 },
+    "popularity_score": 91.0
+  },
+  "s-002": {
+    "imdb": { "score": 7.5, "votes": 120000, "normalized_100": 75.0 },
+    "rt_audience": { "score": 78, "votes": 10000, "normalized_100": 78.0 },
+    "metacritic": { "score": 68, "normalized_100": 68.0 },
+    "popularity_score": 93.0
+  }
+}
