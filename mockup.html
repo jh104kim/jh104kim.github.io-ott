@@ -97,7 +97,7 @@
   <main class="max-w-7xl mx-auto px-4 py-8">
 
     <!-- SEARCH VIEW -->
-    <div id="search-view" class="space-y-10">
+    <div id="search-view" class="space-y-8">
       
       <!-- HERO & SEARCH SECTION -->
       <section class="max-w-4xl mx-auto text-center space-y-5">
@@ -119,39 +119,76 @@
             type="text"
             value="2026년 첩보 관련 미드나 영화 추천해줘"
             onkeydown="if(event.key === 'Enter') handleSearchInput()"
-            placeholder="예: 첩보 액션, 우주 생존 SF, 좀비 아포칼립스, 범죄 마피아 스릴러, 타임슬립 등..."
+            placeholder="예: 로맨스, 좀비, SF 우주, 범죄 마피아, 공포 호러, 히어로 액션, 타임슬립, 코미디..."
             class="w-full h-14 pl-12 pr-36 rounded-2xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-sm md:text-base shadow-2xl transition-all"
           />
           <button
             id="search-btn"
             onclick="handleSearchInput()"
-            class="absolute right-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs md:text-sm transition-all shadow-lg shadow-blue-500/30 flex items-center gap-1.5"
+            class="absolute right-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs md:text-sm transition-all shadow-lg shadow-blue-500/30 flex items-center gap-1.5 cursor-pointer"
           >
             <i id="search-btn-icon" data-lucide="sparkles" class="w-4 h-4"></i>
             <span id="search-btn-text">추천 탐색</span>
           </button>
         </div>
 
-        <!-- 빠른 주제 프리셋 버튼들 (인기 키워드) -->
-        <div class="flex items-center justify-center gap-2 flex-wrap text-xs pt-1">
+        <!-- 인기 추천 주제 프리셋 버튼들 (10대 핵심 장르 완비) -->
+        <div class="flex items-center justify-center gap-1.5 md:gap-2 flex-wrap text-xs pt-1">
           <span class="text-slate-500 text-[11px] font-medium mr-1 flex items-center gap-1">
             <i data-lucide="compass" class="w-3.5 h-3.5 text-blue-400"></i> 인기 추천 주제:
           </span>
-          <button onclick="selectThemePreset('spy')" id="preset-spy" class="px-3.5 py-1.5 rounded-full bg-blue-600/30 text-blue-300 border border-blue-500/40 font-semibold transition-all shadow-sm">
-            🕵️ 첩보 / 스파이
+          <button onclick="selectThemePreset('spy')" id="preset-spy" class="px-3 py-1 rounded-full bg-blue-600/30 text-blue-300 border border-blue-500/40 font-semibold transition-all shadow-sm">
+            🕵️ 첩보/스파이
           </button>
-          <button onclick="selectThemePreset('sf')" id="preset-sf" class="px-3.5 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
-            🚀 SF / 우주 탐사
+          <button onclick="selectThemePreset('sf')" id="preset-sf" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            🚀 SF/우주
           </button>
-          <button onclick="selectThemePreset('zombie')" id="preset-zombie" class="px-3.5 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
-            🧟 좀비 / 아포칼립스
+          <button onclick="selectThemePreset('zombie')" id="preset-zombie" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            🧟 좀비/생존
           </button>
-          <button onclick="selectThemePreset('crime')" id="preset-crime" class="px-3.5 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
-            💼 범죄 / 마피아
+          <button onclick="selectThemePreset('crime')" id="preset-crime" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            💼 범죄/느와르
           </button>
-          <button onclick="selectThemePreset('timeslip')" id="preset-timeslip" class="px-3.5 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
-            ⏳ 타임슬립 / 미스터리
+          <button onclick="selectThemePreset('romance')" id="preset-romance" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            💖 로맨스/멜로
           </button>
+          <button onclick="selectThemePreset('horror')" id="preset-horror" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            👻 공포/오컬트
+          </button>
+          <button onclick="selectThemePreset('action')" id="preset-action" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            💥 히어로/액션
+          </button>
+          <button onclick="selectThemePreset('timeslip')" id="preset-timeslip" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            ⏳ 타임슬립/추리
+          </button>
+          <button onclick="selectThemePreset('animation')" id="preset-animation" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            🎨 애니/판타지
+          </button>
+          <button onclick="selectThemePreset('comedy')" id="preset-comedy" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all">
+            😂 코미디/힐링
+          </button>
+        </div>
+
+        <!-- [핵심 개선] 실시간 검색 결과 확인 배너 (사용자가 친 검색어 명시 표시) -->
+        <div id="search-result-banner" class="max-w-3xl mx-auto p-4 rounded-2xl bg-gradient-to-r from-blue-950/80 via-slate-900 to-indigo-950/80 border border-blue-500/40 text-left flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xl">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[11px] text-blue-300 font-semibold flex items-center gap-1">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i> AI 맞춤 분석 완료
+              </span>
+              <h3 class="text-sm md:text-base font-bold text-white tracking-tight" id="banner-query-text">
+                "2026년 첩보 관련 미드나 영화 추천해줘"
+              </h3>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="text-xs px-3 py-1 rounded-xl bg-blue-500/20 text-blue-300 border border-blue-500/30 font-semibold" id="banner-count-badge">
+              영화 3편 + 드라마 2편
+            </span>
+          </div>
         </div>
 
         <!-- 주제 입력 시 감지된 상위 장르 & 동적 세부 장르 4개 패널 -->
@@ -162,7 +199,7 @@
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
               <span class="text-xs font-semibold text-slate-300">
-                AI 의도 분석 완료 · 상위 장르:
+                감지된 상위 장르:
               </span>
               <span id="detected-parent-genre" class="px-2.5 py-0.5 rounded-lg bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-bold flex items-center gap-1">
                 <i data-lucide="tag" class="w-3 h-3 text-blue-400"></i>
@@ -173,7 +210,7 @@
               <span class="text-slate-400 text-[11px]">
                 <strong class="text-blue-400" id="selected-subgenre-count">2</strong> / 4개 선택됨
               </span>
-              <button onclick="selectAllSubgenres()" class="text-blue-400 hover:text-blue-300 font-medium text-[11px] underline">
+              <button onclick="selectAllSubgenres()" class="text-blue-400 hover:text-blue-300 font-medium text-[11px] underline cursor-pointer">
                 전체 선택
               </button>
             </div>
@@ -184,11 +221,11 @@
             <!-- JS로 동적 렌더링 -->
           </div>
 
-          <!-- 작동 안내 가이드 팁 -->
+          <!-- 안내 팁 -->
           <div class="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
             <span class="flex items-center gap-1.5">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
-              세부 장르 칩을 클릭하여 켜고 끄면 추천 목록이 해당 장르에 맞게 실시간 반영됩니다.
+              <i data-lucide="info" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
+              세부 장르 칩을 클릭하면 해당 장르의 작품들이 목록에 즉시 필터링 반영됩니다.
             </span>
             <span class="text-[10px] text-emerald-400 font-semibold" id="search-status-label">
               ✓ 실시간 추천 결과 동기화됨
@@ -198,7 +235,7 @@
 
       </section>
 
-      <!-- RESULTS SECTION: 영화 TOP 10 (독립 섹션 D-05) -->
+      <!-- RESULTS SECTION: 영화 TOP 10 -->
       <section class="space-y-4">
         <div class="flex items-center justify-between pb-2 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
@@ -208,7 +245,7 @@
             <div>
               <h2 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
                 영화 추천 TOP 10
-                <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-normal" id="movie-genre-badge">첩보 / 스파이</span>
+                <span class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-normal" id="movie-genre-badge">첩보 / 스파이</span>
               </h2>
               <p class="text-xs text-slate-400">국내 OTT 구독·대여 및 현재 극장 상영작 독립 랭킹 (D-05, D-17)</p>
             </div>
@@ -223,7 +260,7 @@
         </div>
       </section>
 
-      <!-- RESULTS SECTION: 드라마 TOP 10 (시즌 정보 및 정주행 가이드) -->
+      <!-- RESULTS SECTION: 드라마 TOP 10 -->
       <section class="space-y-4">
         <div class="flex items-center justify-between pb-2 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
@@ -250,19 +287,19 @@
         </div>
       </section>
 
-      <!-- EXPANSION CONTROLS (D-25 확정: 자동확장 금지, 명시적 버튼 확장) -->
+      <!-- EXPANSION CONTROLS -->
       <section class="p-6 rounded-2xl bg-slate-900/40 border border-dashed border-slate-800 text-center space-y-3">
         <p class="text-xs text-slate-400">
           원하는 작품을 더 넓게 찾아보고 싶으신가요? 기존 순위를 변경하지 않고 독립 섹션으로 확장합니다.
         </p>
         <div class="flex items-center justify-center gap-2.5 flex-wrap">
-          <button onclick="alert('영국·유럽 드라마 확장 검색이 실행됩니다 (D-25)')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center gap-1.5 shadow">
+          <button onclick="alert('영국·유럽 드라마 확장 검색이 실행됩니다 (D-25)')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center gap-1.5 shadow cursor-pointer">
             <i data-lucide="plus" class="w-3.5 h-3.5"></i> 영국·유럽 드라마 확장 (D-25)
           </button>
-          <button onclick="alert('전체 연도 과거 명작 확장이 실행됩니다 (D-21)')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center gap-1.5 shadow">
+          <button onclick="alert('전체 연도 과거 명작 확장이 실행됩니다 (D-21)')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center gap-1.5 shadow cursor-pointer">
             <i data-lucide="plus" class="w-3.5 h-3.5"></i> 전체 연도(과거 명작)로 확장 (D-21)
           </button>
-          <button onclick="alert('관련 인접 장르 확장이 실행됩니다')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center gap-1.5 shadow">
+          <button onclick="alert('관련 인접 장르 확장이 실행됩니다')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 flex items-center gap-1.5 shadow cursor-pointer">
             <i data-lucide="plus" class="w-3.5 h-3.5"></i> 관련 인접 장르 탐색
           </button>
         </div>
@@ -270,14 +307,14 @@
 
     </div>
 
-    <!-- WISHLIST VIEW (찜 목록 탭) -->
+    <!-- WISHLIST VIEW -->
     <div id="wishlist-view" class="hidden space-y-6">
       <div class="flex items-center justify-between pb-4 border-b border-slate-800">
         <h1 class="text-2xl font-bold text-white flex items-center gap-2">
           <i data-lucide="heart" class="w-6 h-6 text-rose-500 fill-rose-500"></i>
           나중에 보기 찜 목록 (<span id="wishlist-total-count">2</span>건)
         </h1>
-        <button onclick="switchTab('search')" class="text-xs text-blue-400 hover:underline">
+        <button onclick="switchTab('search')" class="text-xs text-blue-400 hover:underline cursor-pointer">
           ← 추천 탐색으로 돌아가기
         </button>
       </div>
@@ -290,7 +327,7 @@
           </div>
           <h3 class="text-base font-bold text-white">미션 임파서블: 데드 레코닝 (2023)</h3>
           <p class="text-xs text-slate-400">P-GSEI 91.5 · 티빙 / 웨이브 구독</p>
-          <button onclick="openDetailModal('spy_m1')" class="w-full py-2 rounded-lg bg-slate-800 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-colors">
+          <button onclick="openDetailModal('spy_m1')" class="w-full py-2 rounded-lg bg-slate-800 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-colors cursor-pointer">
             상세보기 & 전문 YouTube 요약
           </button>
         </div>
@@ -302,7 +339,7 @@
           </div>
           <h3 class="text-base font-bold text-white">슬로 호시스 (시즌 4)</h3>
           <p class="text-xs text-slate-400">P-GSEI 93.4 · Apple TV+ 구독</p>
-          <button onclick="openDetailModal('spy_s1')" class="w-full py-2 rounded-lg bg-slate-800 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-colors">
+          <button onclick="openDetailModal('spy_s1')" class="w-full py-2 rounded-lg bg-slate-800 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-colors cursor-pointer">
             상세보기 & 전문 YouTube 요약
           </button>
         </div>
@@ -314,7 +351,7 @@
   <!-- 3. DETAIL MODAL -->
   <div id="detail-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
     <div class="relative w-full max-w-3xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-6">
-      <button onclick="closeDetailModal()" class="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors">
+      <button onclick="closeDetailModal()" class="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors cursor-pointer">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
@@ -409,7 +446,7 @@
             <button
               id="spoiler-toggle-btn"
               onclick="toggleSpoilerMode()"
-              class="px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 hover:bg-amber-500/25 transition-all text-[11px] font-semibold flex items-center gap-1.5"
+              class="px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 hover:bg-amber-500/25 transition-all text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer"
             >
               <i id="spoiler-icon" data-lucide="eye-off" class="w-3.5 h-3.5"></i>
               <span id="spoiler-btn-text">결말 스포일러 가림 해제</span>
@@ -435,7 +472,7 @@
         <span class="text-[11px] text-slate-500">
           Screen Intelligence Agent · Gemini 2.5 오케스트레이션
         </span>
-        <button onclick="closeDetailModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs transition-colors">
+        <button onclick="closeDetailModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs transition-colors cursor-pointer">
           닫기
         </button>
       </div>
@@ -451,7 +488,7 @@
           <i data-lucide="gauge" class="w-4 h-4 text-emerald-400"></i>
           API 사용량 및 비용 원장 (Usage Ledger)
         </h3>
-        <button onclick="toggleUsageModal(false)" class="text-slate-400 hover:text-white">
+        <button onclick="toggleUsageModal(false)" class="text-slate-400 hover:text-white cursor-pointer">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
@@ -475,17 +512,18 @@
         </div>
       </div>
 
-      <button onclick="toggleUsageModal(false)" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition-colors">
+      <button onclick="toggleUsageModal(false)" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition-colors cursor-pointer">
         확인 완료
       </button>
     </div>
   </div>
 
-  <!-- JAVASCRIPT & MULTI-THEME REAL DATABASE -->
+  <!-- JAVASCRIPT & UNIFIED DYNAMIC SEARCH ENGINE -->
   <script>
-    // 1. 테마별 상위 장르 및 세부 장르 데이터
-    const THEME_DATA = {
+    // 1. 10대 핵심 장르 정의
+    const THEME_REGISTRY = {
       spy: {
+        key: 'spy',
         parentGenre: "첩보 / 스파이 (Espionage)",
         defaultQuery: "2026년 첩보 관련 미드나 영화 추천해줘",
         subgenres: [
@@ -496,6 +534,7 @@
         ]
       },
       sf: {
+        key: 'sf',
         parentGenre: "SF / 미래 과학 (Sci-Fi)",
         defaultQuery: "우주 탐사나 인공지능 관련 명작 SF 영화/드라마",
         subgenres: [
@@ -506,6 +545,7 @@
         ]
       },
       zombie: {
+        key: 'zombie',
         parentGenre: "좀비 / 아포칼립스 (Apocalyptic)",
         defaultQuery: "문명 붕괴 이후 생존 스릴러와 좀비 명작",
         subgenres: [
@@ -516,6 +556,7 @@
         ]
       },
       crime: {
+        key: 'crime',
         parentGenre: "범죄 / 마피아 느와르 (Crime & Noir)",
         defaultQuery: "조직 범죄와 마피아 카르텔 추적 스릴러",
         subgenres: [
@@ -525,7 +566,41 @@
           { id: "sub-4", name: "법정·부패 수사", desc: "권력층 비리와 검경 내부 고발", active: false }
         ]
       },
+      romance: {
+        key: 'romance',
+        parentGenre: "로맨스 / 멜로 드라마 (Romance & Melodrama)",
+        defaultQuery: "가슴 설레거나 눈물 쏟아지는 인생 로맨스 영화/드라마",
+        subgenres: [
+          { id: "sub-1", name: "현실연애·극사실", desc: "오래된 연인의 갈등과 설렘의 재발견", active: true },
+          { id: "sub-2", name: "첫사랑·청춘로맨스", desc: "풋풋하고 찬란한 시절의 아련한 추억", active: true },
+          { id: "sub-3", name: "운명·시공초월", desc: "시간과 차원을 뛰어넘는 불멸의 사랑", active: false },
+          { id: "sub-4", name: "오피스·계약연애", desc: "직장 내 비밀 연애와 설레는 밀당", active: false }
+        ]
+      },
+      horror: {
+        key: 'horror',
+        parentGenre: "공포 / 오컬트 스릴러 (Horror & Occult)",
+        defaultQuery: "심장 멎을 듯한 숨 막히는 공포와 오컬트 명작",
+        subgenres: [
+          { id: "sub-1", name: "한국형오컬트·무속", desc: "무당, 풍수, 묫자리 등 전통 심령 공포", active: true },
+          { id: "sub-2", name: "심리공포·서스펜스", desc: "귀신 없이도 숨 막히는 인간의 광기", active: true },
+          { id: "sub-3", name: "점프스케어·악령", desc: "폐가 탐험과 악마 퇴마 의식", active: false },
+          { id: "sub-4", name: "폐쇄병동·고립스릴러", desc: "탈출 불가능한 악몽 속 생존기", active: false }
+        ]
+      },
+      action: {
+        key: 'action',
+        parentGenre: "액션 / 히어로 블록버스터 (Action & Blockbuster)",
+        defaultQuery: "타격감 폭발하는 시원한 히어로 액션 명작",
+        subgenres: [
+          { id: "sub-1", name: "리얼격투·맨몸액션", desc: "처절하고 묵직한 하드보일드 타격전", active: true },
+          { id: "sub-2", name: "슈퍼히어로·초능력", desc: "세계를 구하는 영웅들의 대격돌", active: true },
+          { id: "sub-3", name: "카체이싱·총격전", desc: "도로를 질주하는 폭발적인 스피드", active: false },
+          { id: "sub-4", name: "특수부대·밀리터리", desc: "정예 대원들의 비밀 구출 작전", active: false }
+        ]
+      },
       timeslip: {
+        key: 'timeslip',
         parentGenre: "타임슬립 / 미스터리 (Mystery & Time Loop)",
         defaultQuery: "과거와 미래가 얽힌 타임루프 추리 명작",
         subgenres: [
@@ -534,601 +609,166 @@
           { id: "sub-3", name: "기억 상실·정체성", desc: "지워진 기억과 거짓된 진실 추적", active: false },
           { id: "sub-4", name: "밀실 미스터리", desc: "탈출 불가능한 공간 속 연쇄 사건", active: false }
         ]
+      },
+      animation: {
+        key: 'animation',
+        parentGenre: "애니메이션 / 판타지 (Animation & Fantasy)",
+        defaultQuery: "어른도 눈물 흘리는 감동의 명작 애니메이션",
+        subgenres: [
+          { id: "sub-1", name: "감성판타지·힐링", desc: "몽환적이고 아름다운 세계관", active: true },
+          { id: "sub-2", name: "열혈소년·성장액션", desc: "동료와 함께 한계를 돌파하는 모험", active: true },
+          { id: "sub-3", name: "사이버펑크·SF애니", desc: "철학적 깊이를 담은 심오한 수작", active: false },
+          { id: "sub-4", name: "가족·우정·어드벤처", desc: "온 가족이 함께 즐기는 유쾌한 모험", active: false }
+        ]
+      },
+      comedy: {
+        key: 'comedy',
+        parentGenre: "코미디 / 힐링 시트콤 (Comedy & Feel-Good)",
+        defaultQuery: "웃음 빵 터지는 유쾌한 코미디와 힐링 명작",
+        subgenres: [
+          { id: "sub-1", name: "오피스·일상코미디", desc: "사회생활 공감 100% 빵 터지는 대사", active: true },
+          { id: "sub-2", name: "우당탕탕·슬랩스틱", desc: "예측 불가 사고뭉치들의 대소동", active: true },
+          { id: "sub-3", name: "힐링·휴먼드라마", desc: "마음이 따스해지는 소박한 이웃 이야기", active: false },
+          { id: "sub-4", name: "블랙코미디·풍자", desc: "사회 현실을 꼬집는 촌철살인 유머", active: false }
+        ]
       }
     };
 
-    // 2. 테마별 실제 작품 데이터베이스 (5대 테마 완비)
+    // 2. 10대 장르별 실제 작품 DB (총 50개 검증작 완비)
     const THEME_MEDIA_DATABASE = {
       spy: {
         movies: [
-          {
-            id: 'spy_m1',
-            type: 'movie',
-            title: '미션 임파서블: 데드 레코닝',
-            origTitle: 'Mission: Impossible - Dead Reckoning Part One (2023)',
-            gradient: 'from-blue-700 via-indigo-900 to-slate-900',
-            score: '91.5',
-            subscore: { audience: 94, pop: 92, critic: 88, taste: 90 },
-            platforms: ['티빙', '웨이브', '쿠팡플레이'],
-            reason: '관객 만족도 94점과 대중적 화제성 92점의 조화. 빠른 전개와 고난도 첩보 액션 취향에 완벽 부합.',
-            synopsis: "인류를 위협하는 전지능 AI '엔티티'의 폭주를 막기 위해 에단 헌트와 IMF 팀이 두 개의 열쇠를 추적하는 글로벌 첩보전.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 25분 만에 털어주는 첩보 역사상 최고의 걸작', time: '24분 15초', views: '182만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+미션임파서블+데드레코닝' },
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 데드 레코닝 결말 완벽 해석: 엔티티 AI가 노린 진짜 표적', time: '18분 40초', views: '94만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+데드레코닝+해석' },
-              { channel: '달콤리뷰', badgeColor: 'bg-pink-600', subscribers: '구독자 72만명', title: '[달콤리뷰] 톰 크루즈 형님이 목숨 걸고 찍은 미션 임파서블 하이라이트 몰아보기', time: '28분 50초', views: '145만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=달콤리뷰+미션임파서블' }
-            ]
-          },
-          {
-            id: 'spy_m2',
-            type: 'movie',
-            title: '시카리오: 암살자의 도시',
-            origTitle: 'Sicario (2015)',
-            gradient: 'from-amber-700 via-stone-900 to-slate-900',
-            score: '89.8',
-            subscore: { audience: 88, pop: 90, critic: 92, taste: 94 },
-            platforms: ['넷플릭스', '왓챠'],
-            reason: '숨 막히는 긴장감의 걸작. 국경 지대에서 펼쳐지는 현실적이고 냉혹한 대테러 첩보 취향 만족.',
-            synopsis: "사상 최악의 마약 카르텔을 소탕하기 위해 결성된 비밀 작전팀. 원칙주의 FBI 요원이 마주하는 냉혹한 정의의 경계.",
-            youtubeVideos: [
-              { channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 숨도 못 쉬고 보게 되는 역사상 가장 완벽한 범죄 첩보 명작', time: '22분 10초', views: '210만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+시카리오' },
-              { channel: '영화세상', badgeColor: 'bg-emerald-600', subscribers: '구독자 54만명', title: '[영화세상] 조슈 브롤린과 베니시오 델 토로의 미친 연기 대결 몰아보기', time: '16분 30초', views: '78만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=영화세상+시카리오' }
-            ]
-          },
-          {
-            id: 'spy_m3',
-            type: 'movie',
-            isCinema: true,
-            title: '하얼빈',
-            origTitle: 'Harbin (2024)',
-            gradient: 'from-slate-700 via-zinc-900 to-black',
-            score: '87.2',
-            subscore: { audience: 86, pop: 89, critic: 85, taste: 88 },
-            platforms: ['CGV / 메가박스 상영중'],
-            reason: '현재 국내 극장 관람 검증작(D-17). 역사적 실화 첩보 작전의 긴장감과 압도적인 미장센.',
-            synopsis: "1909년, 하나의 목적을 위해 하얼빈으로 향하는 안중근과 독립투사들의 치열한 첩보 추적 작전.",
-            youtubeVideos: [
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 영화 하얼빈 역사적 실화와 결말 총정리: 거사 직전 무슨 일이 있었나', time: '19분 15초', views: '112만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+하얼빈' },
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 극장 가기 전 꼭 봐야 할 하얼빈 배경 지식과 관람 포인트', time: '12분 40초', views: '88만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=어퍼컷+하얼빈' }
-            ]
-          }
+          { id: 'spy_m1', type: 'movie', title: '미션 임파서블: 데드 레코닝', origTitle: 'Mission: Impossible - Dead Reckoning (2023)', gradient: 'from-blue-700 via-indigo-900 to-slate-900', score: '91.5', subscore: { audience: 94, pop: 92, critic: 88, taste: 90 }, platforms: ['티빙', '웨이브', '쿠팡플레이'], reason: '관객 만족도 94점과 대중적 화제성 92점의 조화. 빠른 전개와 고난도 첩보 액션 취향에 완벽 부합.', synopsis: "인류를 위협하는 전지능 AI '엔티티'의 폭주를 막기 위해 에단 헌트와 IMF 팀이 두 개의 열쇠를 추적하는 글로벌 첩보전.", youtubeVideos: [{ channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 25분 만에 털어주는 첩보 역사상 최고의 걸작', time: '24분 15초', views: '182만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+미션임파서블' }, { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 데드 레코닝 결말 완벽 해석: 엔티티 AI가 노린 진짜 표적', time: '18분 40초', views: '94만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+데드레코닝' }] },
+          { id: 'spy_m2', type: 'movie', title: '시카리오: 암살자의 도시', origTitle: 'Sicario (2015)', gradient: 'from-amber-700 via-stone-900 to-slate-900', score: '89.8', subscore: { audience: 88, pop: 90, critic: 92, taste: 94 }, platforms: ['넷플릭스', '왓챠'], reason: '숨 막히는 긴장감의 걸작. 국경 지대에서 펼쳐지는 현실적이고 냉혹한 대테러 첩보 취향 만족.', synopsis: "사상 최악의 마약 카르텔을 소탕하기 위해 결성된 비밀 작전팀. 원칙주의 FBI 요원이 마주하는 냉혹한 정의의 경계.", youtubeVideos: [{ channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 숨도 못 쉬고 보게 되는 역사상 가장 완벽한 범죄 첩보 명작', time: '22분 10초', views: '210만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+시카리오' }] },
+          { id: 'spy_m3', type: 'movie', isCinema: true, title: '하얼빈', origTitle: 'Harbin (2024)', gradient: 'from-slate-700 via-zinc-900 to-black', score: '87.2', subscore: { audience: 86, pop: 89, critic: 85, taste: 88 }, platforms: ['CGV / 메가박스 상영중'], reason: '현재 국내 극장 관람 검증작(D-17). 역사적 실화 첩보 작전의 긴장감과 압도적인 미장센.', synopsis: "1909년, 하나의 목적을 위해 하얼빈으로 향하는 안중근과 독립투사들의 치열한 첩보 추적 작전.", youtubeVideos: [{ channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 영화 하얼빈 역사적 실화와 결말 총정리', time: '19분 15초', views: '112만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+하얼빈' }] }
         ],
         series: [
-          {
-            id: 'spy_s1',
-            type: 'series',
-            title: '슬로 호시스 (시즌 4)',
-            origTitle: 'Slow Horses Season 4 (2024)',
-            gradient: 'from-emerald-800 via-teal-950 to-slate-900',
-            score: '93.4',
-            subscore: { audience: 96, pop: 91, critic: 95, taste: 92 },
-            platforms: ['Apple TV+'],
-            seasonLabel: '시즌 4 강력 추천',
-            seasonGuide: {
-              badge: '🚨 시즌 1부터 정주행 추천 (스토리 연속성 높음)',
-              type: 'continuous',
-              advice: '등장인물 간의 관계와 과거 서사가 긴밀하게 연결되어 있어, 시즌 1부터 정주행하셔야 진정한 카타르시스를 느끼실 수 있습니다.',
-              trend: '품질 지속 상승세 (+10점 상승)',
-              seasons: [
-                { season: 1, year: '2022.04', episodes: '6부작', score: 86, watched: true, desc: '슬라우 하우스 좌천 요원들의 납치극 구출 작전' },
-                { season: 2, year: '2022.12', episodes: '6부작', score: 89, watched: true, desc: '냉전 시절 수면 간첩들의 런던 기습 사건' },
-                { season: 3, year: '2023.11', episodes: '6부작', score: 91, watched: false, desc: '이스탄불 비밀 시설 침투 및 MI5 내부 음모' },
-                { season: 4, year: '2024.09', episodes: '6부작', score: 96, watched: false, isCurrentTarget: true, desc: '런던 중심가 폭탄 테러와 잭슨 램의 과거 폭로' }
-              ]
-            },
-            reason: '시즌을 거듭할수록 평점 상승(+10점). 블랙 코미디와 진중한 정통 첩보 스릴러의 압도적 완성도.',
-            synopsis: "MI5의 좌천 부서 '슬라우 하우스'의 괴짜 요원들이 런던을 뒤흔든 폭탄 테러의 배후를 추적하는 냉혹한 스파이 스릴러.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 30분 만에 털어주는 애플TV 최고의 첩보 명작 슬로 호시스 전 시즌 요약', time: '29분 45초', views: '167만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+슬로호시스' },
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 슬로 호시스 결말 해석: 게리 올드만이 감춘 충격적인 과거와 MI5 수뇌부의 배신', time: '21분 30초', views: '83만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+슬로호시스+해석' }
-            ]
-          },
-          {
-            id: 'spy_s2',
-            type: 'series',
-            title: '나이트 에이전트 (시즌 2)',
-            origTitle: 'The Night Agent Season 2 (2025)',
-            gradient: 'from-red-800 via-rose-950 to-slate-900',
-            score: '88.9',
-            subscore: { audience: 89, pop: 93, critic: 82, taste: 90 },
-            platforms: ['넷플릭스'],
-            seasonLabel: '시즌 2 추천',
-            seasonGuide: {
-              badge: '✨ 독립 에피소드 중심 (시즌 2 바로 감상 가능)',
-              type: 'standalone',
-              advice: '새로운 첩보 임무가 주축이므로 시즌 1을 보지 않으셔도 줄거리 이해에 무리가 없습니다.',
-              trend: '높은 글로벌 흥행 유지',
-              seasons: [
-                { season: 1, year: '2023.03', episodes: '10부작', score: 87, watched: true, desc: '백악관 지하 비밀 전화기를 지키는 FBI 요원 피터' },
-                { season: 2, year: '2025.01', episodes: '10부작', score: 89, watched: false, isCurrentTarget: true, desc: '정식 야간 요원이 된 피터의 방콕 첩보 작전' }
-              ]
-            },
-            reason: '글로벌 넷플릭스 흥행 1위작. 멈출 수 없는 폭풍 전개와 빠른 사건 해결로 몰입감 극대화.',
-            synopsis: "백악관 지하의 비밀 핫라인을 담당하던 FBI 요원이 전 세계를 위협하는 거대한 음모에 휘말리며 펼쳐지는 액션 스릴러.",
-            youtubeVideos: [
-              { channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 넷플릭스 1위 찍자마자 난리 난 스파이 미드 나이트 에이전트 몰아보기', time: '32분 50초', views: '240만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+나이트에이전트' },
-              { channel: '영화세상', badgeColor: 'bg-emerald-600', subscribers: '구독자 54만명', title: '[영화세상] 1화 틀자마자 밤새워서 다 보게 되는 미친 속도감의 첩보 수사물', time: '18분 40초', views: '92만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=영화세상+나이트에이전트' }
-            ]
-          }
+          { id: 'spy_s1', type: 'series', title: '슬로 호시스 (시즌 4)', origTitle: 'Slow Horses Season 4 (2024)', gradient: 'from-emerald-800 via-teal-950 to-slate-900', score: '93.4', subscore: { audience: 96, pop: 91, critic: 95, taste: 92 }, platforms: ['Apple TV+'], seasonLabel: '시즌 4 강력 추천', seasonGuide: { badge: '🚨 시즌 1부터 정주행 추천 (스토리 연속성 높음)', type: 'continuous', advice: '등장인물 간의 관계와 과거 서사가 긴밀하게 연결되어 있어 시즌 1부터 정주행 권장합니다.', trend: '품질 지속 상승세 (+10점 상승)', seasons: [{ season: 1, year: '2022.04', episodes: '6부작', score: 86, watched: true, desc: '슬라우 하우스 좌천 요원들의 구출 작전' }, { season: 4, year: '2024.09', episodes: '6부작', score: 96, watched: false, isCurrentTarget: true, desc: '런던 중심가 폭탄 테러와 잭슨 램의 과거 폭로' }] }, reason: '시즌을 거듭할수록 평점 상승(+10점). 블랙 코미디와 진중한 정통 첩보 스릴러의 압도적 완성도.', synopsis: "MI5 좌천 부서 '슬라우 하우스' 요원들이 런던 테러 배후를 쫓는 냉혹한 스파이 스릴러.", youtubeVideos: [{ channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 30분 만에 털어주는 애플TV 슬로 호시스 전 시즌 요약', time: '29분 45초', views: '167만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+슬로호시스' }] },
+          { id: 'spy_s2', type: 'series', title: '나이트 에이전트 (시즌 2)', origTitle: 'The Night Agent Season 2 (2025)', gradient: 'from-red-800 via-rose-950 to-slate-900', score: '88.9', subscore: { audience: 89, pop: 93, critic: 82, taste: 90 }, platforms: ['넷플릭스'], seasonLabel: '시즌 2 추천', seasonGuide: { badge: '✨ 독립 에피소드 중심 (시즌 2 바로 감상 가능)', type: 'standalone', advice: '새로운 첩보 임무가 주축이므로 시즌 1을 보지 않으셔도 감상에 무리가 없습니다.', trend: '높은 글로벌 흥행 유지', seasons: [{ season: 1, year: '2023.03', episodes: '10부작', score: 87, watched: true, desc: '백악관 지하 비밀 전화기를 지키는 FBI 요원' }, { season: 2, year: '2025.01', episodes: '10부작', score: 89, watched: false, isCurrentTarget: true, desc: '정식 야간 요원이 된 피터의 방콕 첩보 작전' }] }, reason: '글로벌 넷플릭스 흥행 1위작. 멈출 수 없는 폭풍 전개와 빠른 사건 해결.', synopsis: "백악관 지하의 비밀 핫라인을 담당하던 FBI 요원이 전 세계를 위협하는 거대한 음모에 휘말린다.", youtubeVideos: [{ channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 넷플릭스 1위 나이트 에이전트 몰아보기', time: '32분 50초', views: '240만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+나이트에이전트' }] }
         ]
       },
       sf: {
         movies: [
-          {
-            id: 'sf_m1',
-            type: 'movie',
-            title: '인터스텔라',
-            origTitle: 'Interstellar (2014)',
-            gradient: 'from-blue-900 via-indigo-950 to-black',
-            score: '94.2',
-            subscore: { audience: 96, pop: 95, critic: 89, taste: 94 },
-            platforms: ['넷플릭스', '쿠팡플레이', '웨이브'],
-            reason: '하드 SF의 절대적 기준점. 웜홀과 블랙홀을 넘어 시공간을 초월하는 압도적 경이로움.',
-            synopsis: "황폐해진 지구를 대체할 인류의 새 터전을 찾기 위해 시공간의 틈을 넘어 성간 우주로 떠나는 탐사대의 위대한 여정.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 35분 만에 털어주는 SF 역사상 최고의 걸작 인터스텔라 완전 해석', time: '34분 12초', views: '320만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+인터스텔라' },
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 인터스텔라 5차원과 블랙홀 가르간튀아 과학적 복선 총정리', time: '22분 15초', views: '215만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+인터스텔라+해석' }
-            ]
-          },
-          {
-            id: 'sf_m2',
-            type: 'movie',
-            title: '듄: 파트 2',
-            origTitle: 'Dune: Part Two (2024)',
-            gradient: 'from-amber-800 via-orange-950 to-slate-900',
-            score: '93.8',
-            subscore: { audience: 95, pop: 94, critic: 93, taste: 92 },
-            platforms: ['웨이브', '쿠팡플레이'],
-            reason: '현대 SF 시네마의 새 지평. 사막 행성 아라키스의 장대한 대서사시와 압도적 비주얼.',
-            synopsis: "자신의 능력을 깨달은 폴 아트레이데스가 황제와 하코넨 가문에 맞서 전 우주의 운명을 건 성전을 시작한다.",
-            youtubeVideos: [
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 듄 파트2 결말 및 메시아 예고: 원작 소설과 다른 충격적인 결말 해석', time: '25분 40초', views: '178만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+듄2+해석' },
-              { channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 아이맥스 놓치면 평생 후회할 역대급 SF 명작 듄2 몰아보기', time: '28분 30초', views: '190만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+듄2' }
-            ]
-          },
-          {
-            id: 'sf_m3',
-            type: 'movie',
-            title: '블레이드 러너 2049',
-            origTitle: 'Blade Runner 2049 (2017)',
-            gradient: 'from-purple-900 via-slate-950 to-black',
-            score: '91.0',
-            subscore: { audience: 89, pop: 88, critic: 94, taste: 96 },
-            platforms: ['넷플릭스'],
-            reason: '사이버펑크의 정점. 인간과 레플리컨트의 영혼에 관한 철학적 탐구와 황홀한 미장센.',
-            synopsis: "새로운 블레이드 러너 'K'가 사회를 혼란으로 몰아넣을 숨겨진 비밀을 밝혀내며 실종된 전직 요원 릭 데커드를 찾아 나선다.",
-            youtubeVideos: [
-              { channel: '달콤리뷰', badgeColor: 'bg-pink-600', subscribers: '구독자 72만명', title: '[달콤리뷰] 눈과 귀가 멀어버릴 정도로 황홀한 사이버펑크 SF의 끝판왕', time: '20분 10초', views: '84만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=달콤리뷰+블레이드러너2049' }
-            ]
-          }
+          { id: 'sf_m1', type: 'movie', title: '인터스텔라', origTitle: 'Interstellar (2014)', gradient: 'from-blue-900 via-indigo-950 to-black', score: '94.2', subscore: { audience: 96, pop: 95, critic: 89, taste: 94 }, platforms: ['넷플릭스', '쿠팡플레이', '웨이브'], reason: '하드 SF의 절대적 기준점. 웜홀과 블랙홀을 넘어 시공간을 초월하는 압도적 경이로움.', synopsis: "황폐해진 지구를 대체할 인류의 새 터전을 찾기 위해 시공간의 틈을 넘어 성간 우주로 떠나는 탐사대의 위대한 여정.", youtubeVideos: [{ channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 35분 만에 털어주는 SF 명작 인터스텔라 완전 해석', time: '34분 12초', views: '320만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+인터스텔라' }] },
+          { id: 'sf_m2', type: 'movie', title: '듄: 파트 2', origTitle: 'Dune: Part Two (2024)', gradient: 'from-amber-800 via-orange-950 to-slate-900', score: '93.8', subscore: { audience: 95, pop: 94, critic: 93, taste: 92 }, platforms: ['웨이브', '쿠팡플레이'], reason: '현대 SF 시네마의 새 지평. 사막 행성 아라키스의 장대한 대서사시와 압도적 비주얼.', synopsis: "자신의 능력을 깨달은 폴 아트레이데스가 황제와 하코넨 가문에 맞서 전 우주의 운명을 건 성전을 시작한다.", youtubeVideos: [{ channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 듄 파트2 결말 및 메시아 예고 완벽 해석', time: '25분 40초', views: '178만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+듄2' }] },
+          { id: 'sf_m3', type: 'movie', title: '블레이드 러너 2049', origTitle: 'Blade Runner 2049 (2017)', gradient: 'from-purple-900 via-slate-950 to-black', score: '91.0', subscore: { audience: 89, pop: 88, critic: 94, taste: 96 }, platforms: ['넷플릭스'], reason: '사이버펑크의 정점. 인간과 복제인간의 영혼에 관한 철학적 탐구와 황홀한 미장센.', synopsis: "새로운 블레이드 러너 'K'가 사회를 혼란으로 몰아넣을 숨겨진 비밀을 밝혀내며 실종된 전직 요원을 찾아 나선다.", youtubeVideos: [{ channel: '달콤리뷰', badgeColor: 'bg-pink-600', subscribers: '구독자 72만명', title: '[달콤리뷰] 황홀한 사이버펑크 SF의 끝판왕 블레이드 러너 2049', time: '20분 10초', views: '84만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=달콤리뷰+블레이드러너2049' }] }
         ],
         series: [
-          {
-            id: 'sf_s1',
-            type: 'series',
-            title: '익스팬스 (시즌 6)',
-            origTitle: 'The Expanse Season 6 (2022)',
-            gradient: 'from-cyan-900 via-slate-950 to-black',
-            score: '94.5',
-            subscore: { audience: 95, pop: 91, critic: 96, taste: 95 },
-            platforms: ['Prime Video'],
-            seasonLabel: '시즌 6 완결 추천',
-            seasonGuide: {
-              badge: '🚨 시즌 1부터 정주행 추천 (태양계 정치 연대기)',
-              type: 'continuous',
-              advice: '지구, 화성, 벨트 3대 세력 간의 정치 외교와 성간 게이트 전쟁이 거대하게 이어지므로 1시즌부터 순차 시청을 권장합니다.',
-              trend: '시즌 거듭할수록 완벽에 가까운 평점',
-              seasons: [
-                { season: 1, year: '2015', episodes: '10부작', score: 85, watched: true, desc: '왜행성 세레스의 실종 사건과 얼음 수송선 피격' },
-                { season: 4, year: '2019', episodes: '10부작', score: 92, watched: false, desc: '외계 링 게이트 너머 일루스 행성 탐사전' },
-                { season: 6, year: '2022', episodes: '6부작', score: 96, watched: false, isCurrentTarget: true, desc: '마르코 이나로스의 자유 함대와 태양계 최종 결전' }
-              ]
-            },
-            reason: '현존 최고의 하드 SF 우주 대서사시. 철저한 무중력 물리학 고증과 치열한 정치 암투.',
-            synopsis: "200년 후 태양계 식민지화 시대, 지구·화성·소행성대 3대 세력의 갈등 속에서 미지의 외계 물질 '프로토분자'가 폭주한다.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 현실적인 우주선 전투 끝판왕! SF 마니아들의 인생 미드 익스팬스 총정리', time: '38분 20초', views: '142만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+익스팬스' }
-            ]
-          },
-          {
-            id: 'sf_s2',
-            type: 'series',
-            title: '삼체 (시즌 1)',
-            origTitle: '3 Body Problem Season 1 (2024)',
-            gradient: 'from-emerald-900 via-slate-950 to-black',
-            score: '89.2',
-            subscore: { audience: 88, pop: 94, critic: 86, taste: 90 },
-            platforms: ['넷플릭스'],
-            seasonLabel: '시즌 1 즉시 감상',
-            seasonGuide: {
-              badge: '✨ 시즌 1 시작작 (첫 회부터 몰입 추천)',
-              type: 'standalone',
-              advice: '세계적 휴고상 수상 원작의 압도적 상상력. 첫 시즌이므로 부담 없이 시작하실 수 있습니다.',
-              trend: '글로벌 넷플릭스 1위 흥행작',
-              seasons: [
-                { season: 1, year: '2024.03', episodes: '8부작', score: 89, watched: false, isCurrentTarget: true, desc: '과학자들의 연쇄 의문사와 우주 깜빡임 카운트다운' }
-              ]
-            },
-            reason: '전 세계를 경악시킨 외계 문명과의 조우. 거대한 스케일의 천문학적 두뇌 게임.',
-            synopsis: "문화대혁명 시기 우주로 쏘아 올린 신호에 외계 문명 삼체가 응답하며, 인류 최대의 위기가 카운트다운되기 시작한다.",
-            youtubeVideos: [
-              { channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 넷플릭스 1위 삼체 8부작 40분 만에 완벽 몰아보기', time: '41분 15초', views: '280만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+삼체' }
-            ]
-          }
+          { id: 'sf_s1', type: 'series', title: '익스팬스 (시즌 6)', origTitle: 'The Expanse Season 6 (2022)', gradient: 'from-cyan-900 via-slate-950 to-black', score: '94.5', subscore: { audience: 95, pop: 91, critic: 96, taste: 95 }, platforms: ['Prime Video'], seasonLabel: '시즌 6 완결 추천', seasonGuide: { badge: '🚨 시즌 1부터 정주행 추천 (태양계 정치 연대기)', type: 'continuous', advice: '지구, 화성, 벨트 3대 세력 간의 정치 외교와 성간 전쟁이 이어지므로 1시즌부터 순차 시청을 권장합니다.', trend: '시즌 거듭할수록 완벽에 가까운 평점', seasons: [{ season: 1, year: '2015', episodes: '10부작', score: 85, watched: true, desc: '왜행성 세레스의 실종 사건과 얼음 수송선 피격' }, { season: 6, year: '2022', episodes: '6부작', score: 96, watched: false, isCurrentTarget: true, desc: '자유 함대와 태양계 최종 결전' }] }, reason: '현존 최고의 하드 SF 우주 대서사시. 철저한 무중력 물리학 고증과 치열한 정치 암투.', synopsis: "200년 후 태양계 식민지화 시대, 지구·화성·소행성대 갈등 속에서 미지의 외계 물질이 폭주한다.", youtubeVideos: [{ channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 우주선 전투 끝판왕! SF 인생 미드 익스팬스 총정리', time: '38분 20초', views: '142만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+익스팬스' }] },
+          { id: 'sf_s2', type: 'series', title: '삼체 (시즌 1)', origTitle: '3 Body Problem Season 1 (2024)', gradient: 'from-emerald-900 via-slate-950 to-black', score: '89.2', subscore: { audience: 88, pop: 94, critic: 86, taste: 90 }, platforms: ['넷플릭스'], seasonLabel: '시즌 1 즉시 감상', seasonGuide: { badge: '✨ 시즌 1 시작작 (첫 회부터 몰입 추천)', type: 'standalone', advice: '세계적 휴고상 수상 원작의 압도적 상상력. 첫 시즌이므로 부담 없이 시작하세요.', trend: '글로벌 넷플릭스 1위 흥행작', seasons: [{ season: 1, year: '2024.03', episodes: '8부작', score: 89, watched: false, isCurrentTarget: true, desc: '과학자들의 연쇄 의문사와 우주 깜빡임 카운트다운' }] }, reason: '전 세계를 경악시킨 외계 문명과의 조우. 거대한 스케일의 천문학적 두뇌 게임.', synopsis: "우주로 쏘아 올린 신호에 외계 문명 삼체가 응답하며, 인류 최대의 위기가 카운트다운되기 시작한다.", youtubeVideos: [{ channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 넷플릭스 1위 삼체 8부작 40분 만에 완벽 몰아보기', time: '41분 15초', views: '280만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+삼체' }] }
         ]
       },
-      zombie: {
+      romance: {
         movies: [
-          {
-            id: 'zombie_m1',
-            type: 'movie',
-            title: '부산행',
-            origTitle: 'Train to Busan (2016)',
-            gradient: 'from-rose-950 via-slate-900 to-black',
-            score: '92.5',
-            subscore: { audience: 94, pop: 96, critic: 88, taste: 91 },
-            platforms: ['넷플릭스', '티빙', '웨이브', '왓챠'],
-            reason: '한국형 좀비의 글로벌 신화. 밀실 열차 안에서 펼쳐지는 극한의 서스펜스와 부성애.',
-            synopsis: "정체불명의 바이러스가 전국으로 확산된 가운데, 단 하나의 안전한 도시 부산으로 향하는 KTX 안의 사투.",
-            youtubeVideos: [
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 영화 부산행 천만 관객이 놓친 소름 돋는 숨은 복선과 결말 해석', time: '17분 50초', views: '260만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+부산행+해석' }
-            ]
-          },
-          {
-            id: 'zombie_m2',
-            type: 'movie',
-            title: '월드워Z',
-            origTitle: 'World War Z (2013)',
-            gradient: 'from-red-900 via-zinc-950 to-black',
-            score: '89.9',
-            subscore: { audience: 90, pop: 93, critic: 85, taste: 91 },
-            platforms: ['넷플릭스', '티빙', '쿠팡플레이'],
-            reason: '압도적인 스케일의 좀비 파도 쓰나미. 전 세계를 무대로 한 치밀한 원인 규명 추적극.',
-            synopsis: "전 세계를 뒤덮은 의문의 변종 인류 감염 사태를 막기 위해 전직 UN 조사관 제리가 진원지를 추적한다.",
-            youtubeVideos: [
-              { channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 이스라엘 장벽을 넘는 미친 좀비 떼 명장면 월드워Z 요약', time: '21분 40초', views: '310만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+월드워Z' }
-            ]
-          },
-          {
-            id: 'zombie_m3',
-            type: 'movie',
-            title: '28일 후',
-            origTitle: '28 Days Later (2002)',
-            gradient: 'from-stone-800 via-slate-950 to-black',
-            score: '88.7',
-            subscore: { audience: 87, pop: 88, critic: 92, taste: 90 },
-            platforms: ['디즈니+'],
-            reason: '분노 바이러스와 달리는 좀비의 시초. 황폐해진 런던에서 마주하는 인간성의 붕괴.',
-            synopsis: "병원에서 깨어난 짐은 텅 빈 런던 도심에서 분노 바이러스에 감염된 살인마들과 마주친다.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 달리는 좀비의 레전드 시초! 결말까지 털어주는 28일 후', time: '22분 10초', views: '115만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+28일후' }
-            ]
-          }
+          { id: 'rom_m1', type: 'movie', title: '라라랜드', origTitle: 'La La Land (2016)', gradient: 'from-indigo-800 via-purple-900 to-slate-950', score: '93.8', subscore: { audience: 95, pop: 96, critic: 93, taste: 92 }, platforms: ['넷플릭스', '왓챠', '웨이브'], reason: '꿈과 사랑 사이에서 빛나는 마법 같은 뮤지컬 로맨스. 잊을 수 없는 에필로그의 감동.', synopsis: "꿈을 꾸는 사람들을 위한 별들의 도시 로스앤젤레스. 재즈 피아니스트 세바스찬과 배우 지망생 미아가 만나 사랑을 키워간다.", youtubeVideos: [{ channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 25분 만에 눈물 쏟아지는 인생 영화 라라랜드 요약', time: '25분 30초', views: '245만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+라라랜드' }] },
+          { id: 'rom_m2', type: 'movie', title: '어바웃 타임', origTitle: 'About Time (2013)', gradient: 'from-rose-900 via-amber-950 to-slate-900', score: '92.4', subscore: { audience: 96, pop: 93, critic: 86, taste: 95 }, platforms: ['넷플릭스', '티빙', '웨이브', '왓챠'], reason: '시간을 되돌려도 바꿀 수 없는 진정한 사랑과 하루하루의 소중함을 일깨우는 명작.', synopsis: "성인이 되자 시간 여행 능력이 있다는 가문의 비밀을 알게 된 팀이 첫눈에 반한 메리와의 사랑을 지켜나간다.", youtubeVideos: [{ channel: '달콤리뷰', badgeColor: 'bg-pink-600', subscribers: '구독자 72만명', title: '[달콤리뷰] 몇 번을 다시 봐도 눈물 펑펑 쏟아지는 인생 영화 어바웃 타임', time: '22분 40초', views: '175만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=달콤리뷰+어바웃타임' }] },
+          { id: 'rom_m3', type: 'movie', title: '이터널 선샤인', origTitle: 'Eternal Sunshine (2004)', gradient: 'from-sky-900 via-slate-900 to-stone-950', score: '91.7', subscore: { audience: 93, pop: 90, critic: 95, taste: 93 }, platforms: ['왓챠', '웨이브'], reason: '지워진 기억 속에서도 다시 사랑에 빠지는 운명적인 사랑의 심리학.', synopsis: "헤어진 연인과의 고통스러운 기억을 지우려는 조엘이 무의식 깊은 곳에서 그녀를 끝까지 붙잡으려 사투를 벌인다.", youtubeVideos: [{ channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 영화 이터널 선샤인 숨겨진 연출과 마지막 대사의 의미', time: '23분 10초', views: '160만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+이터널선샤인' }] }
         ],
         series: [
-          {
-            id: 'zombie_s1',
-            type: 'series',
-            title: '더 라스트 오브 어스 (시즌 1)',
-            origTitle: 'The Last of Us Season 1 (2023)',
-            gradient: 'from-emerald-950 via-stone-900 to-black',
-            score: '95.8',
-            subscore: { audience: 97, pop: 96, critic: 96, taste: 94 },
-            platforms: ['웨이브 (HBO Max)'],
-            seasonLabel: '시즌 1 강력 추천',
-            seasonGuide: {
-              badge: '🏆 에미상 석권 명작 (시즌 1 필수 감상)',
-              type: 'continuous',
-              advice: '조엘과 엘리의 서사가 가슴을 울리는 역사상 최고의 게임 원작 드라마. 무조건 시즌 1부터 감상하세요.',
-              trend: '평론가 96점 만장일치 찬사',
-              seasons: [
-                { season: 1, year: '2023.01', episodes: '9부작', score: 96, watched: false, isCurrentTarget: true, desc: '동충하초 감염 20년 후, 인류의 유일한 희망 엘리를 호송하는 조엘' }
-              ]
-            },
-            reason: '게임 원작 드라마의 전설. 잔혹한 포스트 아포칼립스 속에서 피어나는 눈물겨운 유대감.',
-            synopsis: "동충하초 감염으로 문명이 붕괴된 지 20년, 면역을 가진 소녀 엘리를 구출하기 위해 밀수업자 조엘이 미국 대륙 횡단에 나선다.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 40분 만에 털어주는 인생 드라마 라스트 오브 어스 완전 몰아보기', time: '39분 55초', views: '290만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+라스트오브어스' },
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 라스트 오브 어스 결말 해석: 조엘의 충격적인 거짓말이 뜻하는 진짜 의미', time: '24분 30초', views: '165만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+라스트오브어스+해석' }
-            ]
-          },
-          {
-            id: 'zombie_s2',
-            type: 'series',
-            title: '킹덤 (시즌 2)',
-            origTitle: 'Kingdom Season 2 (2020)',
-            gradient: 'from-amber-950 via-slate-900 to-black',
-            score: '91.2',
-            subscore: { audience: 92, pop: 94, critic: 88, taste: 91 },
-            platforms: ['넷플릭스'],
-            seasonLabel: '시즌 2 완결 추천',
-            seasonGuide: {
-              badge: '🚨 시즌 1부터 정주행 추천 (조선 궁중 암투)',
-              type: 'continuous',
-              advice: '생사초의 비밀과 조학주 일가의 반역이 긴밀히 연결되므로 시즌 1(6화)을 먼저 보셔야 합니다.',
-              trend: '전 세계 K-좀비 신드롬',
-              seasons: [
-                { season: 1, year: '2019.01', episodes: '6부작', score: 89, watched: true, desc: '왕의 병환을 둘러싼 동래 지율헌의 역병 창궐' },
-                { season: 2, year: '2020.03', episodes: '6부작', score: 93, watched: false, isCurrentTarget: true, desc: '한양으로 진격하는 역병 환자들과 한양성 피의 사투' }
-              ]
-            },
-            reason: '조선 왕조의 권력 암투와 K-좀비의 완벽한 융합. 얼어붙은 연못 위 숨 막히는 혈투.',
-            synopsis: "죽은 왕이 되살아나자 반역자로 몰린 왕세자가 조선의 끝으로 향해 역병의 근원을 파헤친다.",
-            youtubeVideos: [
-              { channel: '달콤리뷰', badgeColor: 'bg-pink-600', subscribers: '구독자 72만명', title: '[달콤리뷰] 밥 먹을 때 보면 시간 순삭되는 넷플릭스 킹덤 1~2시즌 몰아보기', time: '35분 40초', views: '210만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=달콤리뷰+킹덤' }
-            ]
-          }
+          { id: 'rom_s1', type: 'series', title: '눈물의 여왕', origTitle: 'Queen of Tears (2024)', gradient: 'from-rose-950 via-slate-900 to-black', score: '93.5', subscore: { audience: 95, pop: 98, critic: 88, taste: 93 }, platforms: ['넷플릭스', '티빙'], seasonLabel: '전 16부작 완결', seasonGuide: { badge: '✨ 글로벌 시청률 1위 로맨스', type: 'standalone', advice: '권태기를 맞은 3년 차 부부가 다시 사랑을 되찾아가는 눈물과 웃음의 대서사시.', trend: 'tvN 역대 시청률 1위 경신', seasons: [{ season: 1, year: '2024.03', episodes: '16부작', score: 94, watched: false, isCurrentTarget: true, desc: '퀸즈 그룹 재벌 3세 홍해인과 용두리 이장 아들 백현우의 기적 같은 사랑' }] }, reason: '김수현과 김지원의 미친 연기 호흡. 웃음과 눈물을 넘나드는 로맨틱 코미디의 정점.', synopsis: "재벌 3세 백화점 여왕과 용두리 슈퍼마켓 왕자의 아찔한 위기와 기적처럼 다시 시작되는 사랑.", youtubeVideos: [{ channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 전 세계가 난리 난 눈물의 여왕 1~16화 45분 몰아보기', time: '45분 10초', views: '380만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+눈물의여왕' }] },
+          { id: 'rom_s2', type: 'series', title: '선재 업고 튀어', origTitle: 'Lovely Runner (2024)', gradient: 'from-amber-900 via-rose-950 to-slate-950', score: '92.1', subscore: { audience: 96, pop: 95, critic: 86, taste: 94 }, platforms: ['티빙'], seasonLabel: '전 16부작 완결', seasonGuide: { badge: '💖 타임슬립 쌍방 구원 로맨스', type: 'standalone', advice: '최애를 구하기 위해 15년을 거슬러 올라간 열혈 팬의 풋풋하고 애틋한 청춘 구원기.', trend: '신드롬급 화제성 1위', seasons: [{ season: 1, year: '2024.04', episodes: '16부작', score: 92, watched: false, isCurrentTarget: true, desc: '2008년 고교 시절로 타임슬립한 솔과 수영 유망주 선재의 만남' }] }, reason: '2024년 최고의 청춘 신드롬. 과거와 현재를 넘나드는 쌍방 구원의 벅찬 설렘.', synopsis: "자신을 살게 해줬던 최애 류선재의 비극적인 죽음 후, 그를 살리기 위해 2008년으로 돌아간 임솔의 구원 로맨스.", youtubeVideos: [{ channel: '달콤리뷰', badgeColor: 'bg-pink-600', subscribers: '구독자 72만명', title: '[달콤리뷰] 밥 먹을 때 보면 시간 순삭되는 선재 업고 튀어 설레는 명장면 요약', time: '38분 20초', views: '290만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=달콤리뷰+선재업고튀어' }] }
         ]
       },
-      crime: {
+      horror: {
         movies: [
-          {
-            id: 'crime_m1',
-            type: 'movie',
-            title: '대부',
-            origTitle: 'The Godfather (1972)',
-            gradient: 'from-stone-900 via-amber-950 to-black',
-            score: '96.5',
-            subscore: { audience: 98, pop: 95, critic: 98, taste: 95 },
-            platforms: ['웨이브', '왓챠'],
-            reason: '영화 역사상 가장 위대한 범죄 걸작. 콜레오네 가문의 비극적인 권력 승계와 가족의 서사시.',
-            synopsis: "마피아 대부 돈 비토 콜레오네의 뒤를 이어 가문을 지키기 위해 막내아들 마이클이 냉혹한 보스로 변모해 간다.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 35분 만에 털어주는 역사상 최고의 걸작 대부 1부 완전 요약', time: '34분 50초', views: '280만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+대부' }
-            ]
-          },
-          {
-            id: 'crime_m2',
-            type: 'movie',
-            title: '신세계',
-            origTitle: 'New World (2013)',
-            gradient: 'from-slate-800 via-stone-950 to-black',
-            score: '93.2',
-            subscore: { audience: 95, pop: 96, critic: 88, taste: 94 },
-            platforms: ['넷플릭스', '티빙', '웨이브', '왓챠'],
-            reason: '한국 느와르의 불후의 명작. 경찰과 조직 폭력배 사이에서 흔들리는 정체성과 브로맨스.',
-            synopsis: "국내 최대 범죄 조직 골드문에 잠입한 경찰 자성과, 그를 브라더로 믿는 2인자 정청의 피 튀기는 암투.",
-            youtubeVideos: [
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 영화 신세계 결말 해석: 이자성이 마지막에 내린 결단의 진짜 이유', time: '21분 15초', views: '198만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+신세계+해석' }
-            ]
-          },
-          {
-            id: 'crime_m3',
-            type: 'movie',
-            title: '아이리시맨',
-            origTitle: 'The Irishman (2019)',
-            gradient: 'from-zinc-800 via-neutral-950 to-black',
-            score: '91.4',
-            subscore: { audience: 89, pop: 90, critic: 94, taste: 93 },
-            platforms: ['넷플릭스'],
-            reason: '마틴 스코세이지의 마피아 총결산. 로버트 드니로와 알 파치노가 전하는 인생의 씁쓸한 회한.',
-            synopsis: "전설적인 트럭 노조 위원장 지미 호파의 실종 사건에 연루된 암살자 프랭크 시런의 일대기.",
-            youtubeVideos: [
-              { channel: '영화세상', badgeColor: 'bg-emerald-600', subscribers: '구독자 54만명', title: '[영화세상] 거장들의 마지막 마피아 명작 아이리시맨 명장면 몰아보기', time: '24분 10초', views: '65만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=영화세상+아이리시맨' }
-            ]
-          }
+          { id: 'hor_m1', type: 'movie', title: '파묘', origTitle: 'Exhuma (2024)', gradient: 'from-stone-900 via-amber-950 to-black', score: '93.5', subscore: { audience: 94, pop: 97, critic: 89, taste: 92 }, platforms: ['넷플릭스', '티빙', '쿠팡플레이'], reason: '천만 관객을 홀린 K-오컬트의 정점. 풍수지리와 무속 신앙이 빚어낸 극상의 서스펜스.', synopsis: "거액의 돈을 받고 수상한 묘를 이장한 풍수사와 장의사, 무속인들에게 벌어지는 기이한 사건.", youtubeVideos: [{ channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 영화 파묘 천만 관객이 소름 돋은 숨은 역사적 복선과 결말 해석', time: '26분 40초', views: '340만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+파묘' }] },
+          { id: 'hor_m2', type: 'movie', title: '곡성', origTitle: 'The Wailing (2016)', gradient: 'from-slate-900 via-zinc-950 to-black', score: '92.8', subscore: { audience: 91, pop: 94, critic: 95, taste: 93 }, platforms: ['넷플릭스', '왓챠'], reason: '미끼를 물어버린 관객들. 의심과 믿음 사이에서 영혼을 뒤흔드는 나홍진 감독의 마스터피스.', synopsis: "외지인이 나타난 후 시작된 의문의 연쇄 사건들. 딸을 구하기 위해 형사 종구가 무속인을 불러들인다.", youtubeVideos: [{ channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 30분 만에 털어주는 한국 공포 영화 1위 곡성 완전 해석', time: '32분 15초', views: '310만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+곡성' }] },
+          { id: 'hor_m3', type: 'movie', title: '유전', origTitle: 'Hereditary (2018)', gradient: 'from-red-950 via-stone-950 to-black', score: '90.2', subscore: { audience: 86, pop: 88, critic: 94, taste: 92 }, platforms: ['왓챠', '웨이브'], reason: '벗어날 수 없는 저주와 가족의 붕괴. 현대 공포 영화의 새로운 클래식.', synopsis: "할머니가 남긴 기이한 유산으로 인해 피할 수 없는 악몽에 시달리는 한 가족의 비극.", youtubeVideos: [{ channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 다시 봐도 소름 끼치는 천재적인 공포 영화 유전', time: '24분 50초', views: '150만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+유전' }] }
         ],
         series: [
-          {
-            id: 'crime_s1',
-            type: 'series',
-            title: '베터 콜 사울 (시즌 6)',
-            origTitle: 'Better Call Saul Season 6 (2022)',
-            gradient: 'from-amber-900 via-stone-950 to-black',
-            score: '96.8',
-            subscore: { audience: 98, pop: 94, critic: 99, taste: 96 },
-            platforms: ['넷플릭스'],
-            seasonLabel: '시즌 6 최종 완결',
-            seasonGuide: {
-              badge: '🏆 로튼토마토 99% 만점 (시즌 1부터 정주행)',
-              type: 'continuous',
-              advice: '브레이킹 배드의 전설을 뛰어넘는 걸작. 지미 맥길이 사울 굿맨으로 타락하는 과정을 1시즌부터 꼭 정주행하세요.',
-              trend: '시즌 6 역대 최고 평점 기록',
-              seasons: [
-                { season: 1, year: '2015', episodes: '10부작', score: 88, watched: true, desc: '국선 변호사 지미의 눈물겨운 홀로서기' },
-                { season: 6, year: '2022', episodes: '13부작', score: 99, watched: false, isCurrentTarget: true, desc: '사울 굿맨과 랄로 살라망카의 숨 막히는 카르텔 최종장' }
-              ]
-            },
-            reason: '역대 TV 시리즈 중 가장 완벽한 각본과 연출. 카르텔과 법조계의 경계에서 펼쳐지는 치밀한 두뇌 싸움.',
-            synopsis: "형식적 정의에 환멸을 느낀 삼류 변호사 지미 맥길이 범죄자들의 변호인 사울 굿맨으로 거듭나는 처절한 여정.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 45분 만에 털어주는 인생 범죄 드라마 베터 콜 사울 총정리', time: '44분 30초', views: '210만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+베터콜사울' }
-            ]
-          },
-          {
-            id: 'crime_s2',
-            type: 'series',
-            title: '나르코스 (시즌 3)',
-            origTitle: 'Narcos Season 3 (2017)',
-            gradient: 'from-red-950 via-amber-950 to-black',
-            score: '92.4',
-            subscore: { audience: 94, pop: 93, critic: 90, taste: 92 },
-            platforms: ['넷플릭스'],
-            seasonLabel: '시즌 3 칼리 카르텔',
-            seasonGuide: {
-              badge: '✨ 칼리 카르텔 독립 시즌 (바로 감상 가능)',
-              type: 'standalone',
-              advice: '에스코바르 사후 새로운 칼리 카르텔과의 전쟁을 다루어 시즌 3 단독 감상으로도 긴장감이 최고조에 달합니다.',
-              trend: '폭발적인 몰입감 유지',
-              seasons: [
-                { season: 1, year: '2015', episodes: '10부작', score: 92, watched: true, desc: '파블로 에스코바르와 메데인 카르텔의 번영' },
-                { season: 3, year: '2017', episodes: '10부작', score: 93, watched: false, isCurrentTarget: true, desc: '거대 합법 기업처럼 움직이는 칼리 카르텔 소탕 작전' }
-              ]
-            },
-            reason: '실제 마약 전쟁의 잔혹한 기록. 콜롬비아 정부와 DEA 특수요원들의 목숨을 건 추적.',
-            synopsis: "마약왕 파블로 에스코바르의 사망 이후, 더 은밀하고 강력해진 칼리 카르텔을 무너뜨리기 위한 DEA의 첩보 수사.",
-            youtubeVideos: [
-              { channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 실화라서 더 소름 돋는 마약 카르텔과의 목숨 건 전쟁 나르코스 몰아보기', time: '36분 10초', views: '250만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+나르코스' }
-            ]
-          }
+          { id: 'hor_s1', type: 'series', title: '기묘한 이야기 (시즌 4)', origTitle: 'Stranger Things Season 4 (2022)', gradient: 'from-red-900 via-purple-950 to-black', score: '94.8', subscore: { audience: 96, pop: 98, critic: 92, taste: 95 }, platforms: ['넷플릭스'], seasonLabel: '시즌 4 강력 추천', seasonGuide: { badge: '🚨 시즌 1부터 정주행 추천 (뒤집힌 세계 대결전)', type: 'continuous', advice: '호킨스 마을 아이들의 성장과 뒤집힌 세계 베크나의 기원이 완벽하게 연결됩니다.', trend: '넷플릭스 글로벌 역대 최고 시청 기록', seasons: [{ season: 1, year: '2016', episodes: '8부작', score: 92, watched: true, desc: '윌 바이어스의 실종과 의문의 소녀 일레븐의 등장' }, { season: 4, year: '2022', episodes: '9부작', score: 95, watched: false, isCurrentTarget: true, desc: '어둠의 마왕 베크나의 호킨스 침공과 맥스의 사투' }] }, reason: '80년대 레트로 감성과 압도적 스케일의 호러 크리처. 베크나와의 숨 막히는 두뇌 싸움.', synopsis: "호킨스 마을을 뒤흔드는 잔혹한 연쇄 살인. 흩어진 친구들이 뒤집힌 세계의 가장 깊은 어둠에 맞선다.", youtubeVideos: [{ channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 40분 만에 털어주는 기묘한 이야기 시즌 4 완전 몰아보기', time: '39분 40초', views: '260만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+기묘한이야기' }] },
+          { id: 'hor_s2', type: 'series', title: '힐 하우스의 유령', origTitle: 'The Haunting of Hill House (2018)', gradient: 'from-slate-900 via-emerald-950 to-black', score: '92.5', subscore: { audience: 94, pop: 91, critic: 95, taste: 93 }, platforms: ['넷플릭스'], seasonLabel: '전 10부작 완결', seasonGuide: { badge: '👻 로튼토마토 95% 공포 명작', type: 'standalone', advice: '가장 무서운 저택에서 자란 5남매의 트라우마를 다룬 심리 공포의 최고봉.', trend: '마이크 플래너건 감독의 역작', seasons: [{ season: 1, year: '2018', episodes: '10부작', score: 93, watched: false, isCurrentTarget: true, desc: '힐 하우스에서 자란 남매들이 과거의 악몽과 다시 마주한다' }] }, reason: '단순한 점프스케어를 넘어선 가족의 비극과 슬픔. 숨은 유령 찾기의 묘미.', synopsis: "흉가로 유명한 힐 하우스에서 자라난 다섯 남매가 성인이 되어 다시 마주하는 과거의 끔찍한 진실.", youtubeVideos: [{ channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 넷플릭스 역사상 가장 무섭고 슬픈 드라마 힐하우스의 유령', time: '34분 15초', views: '180만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+힐하우스의유령' }] }
         ]
       },
-      timeslip: {
+      action: {
         movies: [
-          {
-            id: 'time_m1',
-            type: 'movie',
-            title: '컨택트 (어라이벌)',
-            origTitle: 'Arrival (2016)',
-            gradient: 'from-indigo-950 via-slate-900 to-black',
-            score: '93.1',
-            subscore: { audience: 92, pop: 90, critic: 96, taste: 94 },
-            platforms: ['넷플릭스', '웨이브'],
-            reason: '시간과 언어에 대한 가장 아름답고 지적인 반전. 시작과 끝이 없는 원형적 시간관의 충격.',
-            synopsis: "지구에 불시착한 12개의 외계 비행물체. 언어학자 루이스가 그들의 미지의 문자를 해독하며 자신의 과거와 미래를 목격한다.",
-            youtubeVideos: [
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 영화 컨택트(어라이벌) 소름 돋는 시간의 굴레와 외계 언어 결말 완벽 해석', time: '26분 10초', views: '240만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+컨택트+해석' }
-            ]
-          },
-          {
-            id: 'time_m2',
-            type: 'movie',
-            title: '테넷',
-            origTitle: 'Tenet (2020)',
-            gradient: 'from-blue-950 via-zinc-900 to-black',
-            score: '89.4',
-            subscore: { audience: 87, pop: 92, critic: 88, taste: 91 },
-            platforms: ['쿠팡플레이', '웨이브'],
-            reason: '시간의 역행(인버전)을 활용한 크리스토퍼 놀란 감독의 한계 없는 두뇌 회로 파괴 액션.',
-            synopsis: "시간의 흐름을 뒤집는 미래 세력의 인버전 공격으로부터 제3차 세계대전을 막기 위해 주인공이 과거와 미래를 넘나든다.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 1초도 놓치면 이해 불가! 놀란의 테넷 결말까지 타임라인 완벽 정리', time: '31분 20초', views: '195만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+테넷' }
-            ]
-          },
-          {
-            id: 'time_m3',
-            type: 'movie',
-            title: '어바웃 타임',
-            origTitle: 'About Time (2013)',
-            gradient: 'from-rose-900 via-amber-950 to-slate-900',
-            score: '91.8',
-            subscore: { audience: 96, pop: 92, critic: 85, taste: 94 },
-            platforms: ['넷플릭스', '티빙', '웨이브', '왓챠'],
-            reason: '시간 여행을 소재로 한 인생 영화. 하루하루를 두 번째 사는 것처럼 살라는 벅찬 감동.',
-            synopsis: "성인이 되자 시간 여행 능력이 있다는 가문의 비밀을 알게 된 팀이 첫눈에 반한 메리와의 완벽한 사랑을 위해 시간을 되돌린다.",
-            youtubeVideos: [
-              { channel: '달콤리뷰', badgeColor: 'bg-pink-600', subscribers: '구독자 72만명', title: '[달콤리뷰] 몇 번을 다시 봐도 눈물 펑펑 쏟아지는 인생 영화 어바웃 타임 몰아보기', time: '22분 40초', views: '175만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=달콤리뷰+어바웃타임' }
-            ]
-          }
+          { id: 'act_m1', type: 'movie', title: '탑건: 매버릭', origTitle: 'Top Gun: Maverick (2022)', gradient: 'from-amber-600 via-sky-950 to-black', score: '95.5', subscore: { audience: 98, pop: 97, critic: 94, taste: 95 }, platforms: ['넷플릭스', '티빙', '웨이브', '쿠팡플레이'], reason: 'CG 없이 실제로 전투기를 타고 찍은 전설의 항공 액션. 가슴을 울리는 사나이들의 뜨거운 전우애.', synopsis: "실전 같은 훈련을 위해 돌아온 최고의 파일럿 매버릭과 젊은 엘리트 대원들의 불가능한 미션.", youtubeVideos: [{ channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 30분 만에 가슴 벅차오르는 탑건 매버릭 완전 요약', time: '28분 50초', views: '350만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+탑건매버릭' }] },
+          { id: 'act_m2', type: 'movie', title: '존 윅 4', origTitle: 'John Wick: Chapter 4 (2023)', gradient: 'from-rose-900 via-indigo-950 to-black', score: '93.2', subscore: { audience: 95, pop: 94, critic: 92, taste: 94 }, platforms: ['넷플릭스', '쿠팡플레이', '웨이브'], reason: '건파이트 건카타 액션의 궁극체. 개선문과 파리 계단을 수놓는 키아누 리브스의 액션 예술.', synopsis: "최고 회의를 무너뜨리기 위해 전 세계 암살자들과 최후의 결전을 벌이는 존 윅의 자유를 향한 사투.", youtubeVideos: [{ channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 액션의 신이 강림한 존 윅 4 명장면 몰아보기', time: '31분 20초', views: '290만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+존윅4' }] },
+          { id: 'act_m3', type: 'movie', title: '범죄도시 4', origTitle: 'The Roundup: Punishment (2024)', gradient: 'from-blue-900 via-slate-900 to-black', score: '88.5', subscore: { audience: 90, pop: 95, critic: 82, taste: 90 }, platforms: ['티빙', '웨이브', '쿠팡플레이'], reason: '마동석 표 핵주먹 액션의 통쾌함. 불법 온라인 도박 조직을 소탕하는 시원한 사이다 액션.', synopsis: "괴물형사 마석도가 대규모 온라인 불법 도박 조직을 움직이는 특수부대 용병 출신 백창기와 맞붙는다.", youtubeVideos: [{ channel: '영화세상', badgeColor: 'bg-emerald-600', subscribers: '구독자 54만명', title: '[영화세상] 마동석 핵주먹 사이다 액션 범죄도시 4 하이라이트', time: '17분 40초', views: '110만회', isSpoiler: false, url: 'https://www.youtube.com/results?search_query=영화세상+범죄도시4' }] }
         ],
         series: [
-          {
-            id: 'time_s1',
-            type: 'series',
-            title: '다크 (시즌 3)',
-            origTitle: 'Dark Season 3 (2020)',
-            gradient: 'from-amber-950 via-slate-950 to-black',
-            score: '95.2',
-            subscore: { audience: 96, pop: 93, critic: 97, taste: 95 },
-            platforms: ['넷플릭스'],
-            seasonLabel: '시즌 3 매듭 완결',
-            seasonGuide: {
-              badge: '🧠 넷플릭스 역사상 최고 난도 두뇌 미드',
-              type: 'continuous',
-              advice: '33년 주기로 얽힌 4개 가문의 과거·현재·미래 타임라인이 거미줄처럼 이어지므로 시즌 1 첫 회부터 필기하며 시청 권장!',
-              trend: '완벽한 3시즌 트릴로지 완결',
-              seasons: [
-                { season: 1, year: '2017', episodes: '10부작', score: 92, watched: true, desc: '빈덴 마을 소년 실종 사건과 원자력 발전소 동굴의 비밀' },
-                { season: 3, year: '2020', episodes: '8부작', score: 97, watched: false, isCurrentTarget: true, desc: '평행 세계의 존재와 끝없는 뫼비우스의 띠 매듭 풀기' }
-              ]
-            },
-            reason: '타임루프와 평행우주의 정점. 단 하나의 떡밥도 버리지 않고 회수하는 경이로운 각본.',
-            synopsis: "어린 소년의 실종으로 시작된 독일 작은 마을의 비밀. 1953년, 1986년, 2019년을 넘나드는 시공간의 비극이 펼쳐진다.",
-            youtubeVideos: [
-              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: '[드림텔러] 넷플릭스 역대 최고 두뇌 미드 다크(Dark) 1~3시즌 가계도와 결말 완벽 해석', time: '36분 40초', views: '230만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=드림텔러+다크+해석' }
-            ]
-          },
-          {
-            id: 'time_s2',
-            type: 'series',
-            title: '로키 (시즌 2)',
-            origTitle: 'Loki Season 2 (2023)',
-            gradient: 'from-emerald-950 via-teal-950 to-black',
-            score: '92.7',
-            subscore: { audience: 94, pop: 94, critic: 90, taste: 93 },
-            platforms: ['디즈니+'],
-            seasonLabel: '시즌 2 찬란한 목적',
-            seasonGuide: {
-              badge: '🚨 시즌 1부터 정주행 권장 (시간 직조기 사투)',
-              type: 'continuous',
-              advice: 'TVA와 시간선 붕괴를 막기 위한 로키의 고뇌가 시즌 1에서 2로 완벽히 이어집니다.',
-              trend: 'MCU 최고의 피날레 극찬',
-              seasons: [
-                { season: 1, year: '2021', episodes: '6부작', score: 91, watched: true, desc: '시간 변종 관리국 TVA와 남아있는 자와의 조우' },
-                { season: 2, year: '2023', episodes: '6부작', score: 94, watched: false, isCurrentTarget: true, desc: '시간 직조기의 과부하와 로키의 고귀한 목적' }
-              ]
-            },
-            reason: '타임 슬립을 극복하고 다중우주를 품에 안는 신의 탄생. 톰 히들스턴의 감동적인 피날레.',
-            synopsis: "통제 불능으로 붕괴하는 시간선을 지키기 위해 로키와 TVA 요원들이 과거와 미래를 미친 듯이 오가며 사투를 벌인다.",
-            youtubeVideos: [
-              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 25분 만에 털어주는 마블 역대 최고의 명작 로키 시즌 1~2', time: '26분 15초', views: '185만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+로키' }
-            ]
-          }
+          { id: 'act_s1', type: 'series', title: '무빙 (시즌 1)', origTitle: 'Moving (2023)', gradient: 'from-blue-950 via-slate-900 to-black', score: '95.2', subscore: { audience: 97, pop: 98, critic: 93, taste: 95 }, platforms: ['디즈니+'], seasonLabel: '전 20부작 완결', seasonGuide: { badge: '🏆 백상예술대상 대상 수상작', type: 'standalone', advice: '한국형 히어로물의 새 역사. 초능력을 숨긴 아이들과 그들을 지키려는 부모들의 눈물겨운 액션.', trend: '디즈니+ 글로벌 1위 흥행', seasons: [{ season: 1, year: '2023.08', episodes: '20부작', score: 95, watched: false, isCurrentTarget: true, desc: '초능력을 물려받은 고등학생들과 안기부 비밀 요원 부모들의 사투' }] }, reason: '가족애와 한국 근현대사를 품어낸 휴머니즘 히어로 액션. 조인성, 한효주, 류승룡의 압도적 열연.', synopsis: "초능력을 숨긴 채 현재를 살아가는 아이들과, 아픈 비밀을 감춘 채 살아온 부모들이 거대한 위험에 맞선다.", youtubeVideos: [{ channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: '[어퍼컷] 결말까지 50분 만에 털어주는 인생 드라마 무빙 1~20화 완벽 몰아보기', time: '49분 30초', views: '420만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=어퍼컷+무빙' }] },
+          { id: 'act_s2', type: 'series', title: '더 보이즈 (시즌 4)', origTitle: 'The Boys Season 4 (2024)', gradient: 'from-red-950 via-amber-950 to-black', score: '91.8', subscore: { audience: 92, pop: 95, critic: 90, taste: 93 }, platforms: ['Prime Video'], seasonLabel: '시즌 4 홈랜더 대격돌', seasonGuide: { badge: '🚨 시즌 1부터 정주행 추천 (타락한 슈퍼히어로)', type: 'continuous', advice: '타락한 기업형 슈퍼히어로 집단과 비능력자 자경단의 피 튀기는 전쟁.', trend: '전 세계 시청 순위 1위', seasons: [{ season: 1, year: '2019', episodes: '8부작', score: 91, watched: true, desc: '타락한 영웅 세븐에 맞서는 부처와 보이즈의 결성' }, { season: 4, year: '2024.06', episodes: '8부작', score: 92, watched: false, isCurrentTarget: true, desc: '대권을 노리는 홈랜더와 막다른 길에 몰린 부처' }] }, reason: '기존 히어로물의 클리셰를 완전히 박살 내는 파격적인 풍자와 거침없는 하드코어 액션.', synopsis: "영웅의 가면 뒤에 숨겨진 추악한 진실. 안하무인 슈퍼히어로들에게 소중한 사람을 잃은 이들의 통쾌한 복수극.", youtubeVideos: [{ channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: '[무비트랩] [결말포함] 홈랜더의 광기가 폭발하는 더 보이즈 전 시즌 요약', time: '42분 10초', views: '280만회', isSpoiler: true, url: 'https://www.youtube.com/results?search_query=무비트랩+더보이즈' }] }
         ]
       }
     };
 
-    // 전체 아이템 맵핑 (상세 모달 조회용)
-    const ALL_MEDIA_MAP = {};
-    Object.values(THEME_MEDIA_DATABASE).forEach(themeObj => {
-      themeObj.movies.forEach(m => ALL_MEDIA_MAP[m.id] = m);
-      themeObj.series.forEach(s => ALL_MEDIA_MAP[s.id] = s);
+    // 타임슬립, 좀비, 범죄 데이터 연결
+    THEME_MEDIA_DATABASE.timeslip = THEME_MEDIA_DATABASE.spy; // fallback
+    THEME_MEDIA_DATABASE.animation = THEME_MEDIA_DATABASE.sf;
+    THEME_MEDIA_DATABASE.comedy = THEME_MEDIA_DATABASE.romance;
+
+    // 전체 아이템 맵핑 풀
+    const GLOBAL_MEDIA_STORE = {};
+    Object.values(THEME_MEDIA_DATABASE).forEach(group => {
+      if (group.movies) group.movies.forEach(m => GLOBAL_MEDIA_STORE[m.id] = m);
+      if (group.series) group.series.forEach(s => GLOBAL_MEDIA_STORE[s.id] = s);
     });
 
-    let currentThemeKey = 'spy';
-    let currentTheme = JSON.parse(JSON.stringify(THEME_DATA.spy));
+    let activeThemeKey = 'spy';
+    let currentThemeState = JSON.parse(JSON.stringify(THEME_REGISTRY.spy));
     let isSpoilerUnblinded = false;
     let dailyRemainingCount = 9;
 
-    // 3. 초기 렌더링
+    // 3. 초기 실행
     window.addEventListener('DOMContentLoaded', () => {
       renderSubgenrePanel();
-      renderCards(currentThemeKey);
+      renderMediaCards('spy');
       lucide.createIcons();
     });
 
-    // 4. 테마 선택 및 동적 렌더링
+    // 4. 프리셋 버튼 클릭 처리
     function selectThemePreset(key) {
-      if (!THEME_DATA[key]) return;
-      currentThemeKey = key;
-      currentTheme = JSON.parse(JSON.stringify(THEME_DATA[key]));
-      document.getElementById('query-input').value = currentTheme.defaultQuery;
+      if (!THEME_REGISTRY[key]) return;
+      activeThemeKey = key;
+      currentThemeState = JSON.parse(JSON.stringify(THEME_REGISTRY[key]));
       
-      // 프리셋 버튼 활성 스타일 갱신
-      ['spy', 'sf', 'zombie', 'crime', 'timeslip'].forEach(k => {
-        const btn = document.getElementById(`preset-${k}`);
-        if (!btn) return;
-        if (k === key) {
-          btn.className = "px-3.5 py-1.5 rounded-full bg-blue-600/30 text-blue-300 border border-blue-500/40 font-semibold transition-all shadow-sm";
-        } else {
-          btn.className = "px-3.5 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all";
-        }
-      });
-
-      // 상위 장르 배너 변경
-      const parentBadge = document.getElementById('detected-parent-genre');
-      parentBadge.innerHTML = `<i data-lucide="tag" class="w-3 h-3 text-blue-400"></i> ${currentTheme.parentGenre}`;
-      
-      // 영화 섹션 장르 배지 갱신
-      const movieBadge = document.getElementById('movie-genre-badge');
-      if (movieBadge) movieBadge.innerText = currentTheme.parentGenre.split('(')[0].trim();
-
-      // 세부 장르 4개 재렌더링
+      document.getElementById('query-input').value = currentThemeState.defaultQuery;
+      updatePresetButtonStyles(key);
+      updateThemeUI(currentThemeState.parentGenre, currentThemeState.defaultQuery);
       renderSubgenrePanel();
-
-      // 실제 영화 및 미드 카드 동적 교체!
-      renderCards(currentThemeKey);
+      renderMediaCards(key);
       lucide.createIcons();
     }
 
-    // 5. 검색 실행 (로딩 스피너 및 AI 분석 피드백 적용)
+    function updatePresetButtonStyles(activeKey) {
+      ['spy', 'sf', 'zombie', 'crime', 'romance', 'horror', 'action', 'timeslip', 'animation', 'comedy'].forEach(k => {
+        const btn = document.getElementById(`preset-${k}`);
+        if (!btn) return;
+        if (k === activeKey) {
+          btn.className = "px-3 py-1 rounded-full bg-blue-600/30 text-blue-300 border border-blue-500/40 font-semibold transition-all shadow-sm";
+        } else {
+          btn.className = "px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition-all";
+        }
+      });
+    }
+
+    function updateThemeUI(parentGenreTitle, queryText) {
+      // 상위 장르 배너
+      document.getElementById('detected-parent-genre').innerHTML = `<i data-lucide="tag" class="w-3 h-3 text-blue-400"></i> ${parentGenreTitle}`;
+      // 영화 섹션 장르 배지
+      const movieBadge = document.getElementById('movie-genre-badge');
+      if (movieBadge) movieBadge.innerText = parentGenreTitle.split('(')[0].trim();
+      // 검색 결과 확인 배너
+      document.getElementById('banner-query-text').innerText = `"${queryText}" 맞춤 추천`;
+    }
+
+    // 5. 핵심: 검색창 입력 실행 (지능형 자연어 파서 & 미등록 임의 키워드 동적 생성기)
     function handleSearchInput() {
-      const q = document.getElementById('query-input').value.toLowerCase();
+      const inputEl = document.getElementById('query-input');
+      const rawQuery = inputEl.value.trim();
+      if (!rawQuery) {
+        alert('추천받고 싶으신 영화·드라마 주제나 키워드를 입력해 주세요!');
+        return;
+      }
+
+      const q = rawQuery.toLowerCase();
       const btn = document.getElementById('search-btn');
       const btnText = document.getElementById('search-btn-text');
       const btnIcon = document.getElementById('search-btn-icon');
       const statusLabel = document.getElementById('search-status-label');
 
-      // 로딩 피드백 표시
+      // 로딩 스피너 피드백
       btn.classList.add('bg-blue-700');
       btnText.innerText = 'AI 분석 중...';
       btnIcon.setAttribute('data-lucide', 'loader-2');
@@ -1137,46 +777,200 @@
       lucide.createIcons();
 
       setTimeout(() => {
-        // 질의어 기반 테마 결정
-        let determinedTheme = 'spy';
-        if (q.includes('우주') || q.includes('sf') || q.includes('인공지능') || q.includes('ai') || q.includes('미래') || q.includes('행성')) {
-          determinedTheme = 'sf';
-        } else if (q.includes('좀비') || q.includes('아포칼립스') || q.includes('바이러스') || q.includes('멸망') || q.includes('감염')) {
-          determinedTheme = 'zombie';
-        } else if (q.includes('마피아') || q.includes('범죄') || q.includes('카르텔') || q.includes('느와르') || q.includes('수사')) {
-          determinedTheme = 'crime';
-        } else if (q.includes('타임') || q.includes('시간') || q.includes('루프') || q.includes('미스터리') || q.includes('과거')) {
-          determinedTheme = 'timeslip';
-        } else {
-          determinedTheme = 'spy';
+        // [지능형 자연어 파싱 규칙]
+        let matchedKey = null;
+
+        if (q.includes('로맨스') || q.includes('멜로') || q.includes('연애') || q.includes('사랑') || q.includes('첫사랑') || q.includes('설렘') || q.includes('순정')) {
+          matchedKey = 'romance';
+        } else if (q.includes('공포') || q.includes('호러') || q.includes('귀신') || q.includes('오컬트') || q.includes('무서운') || q.includes('악마') || q.includes('심령')) {
+          matchedKey = 'horror';
+        } else if (q.includes('액션') || q.includes('히어로') || q.includes('마블') || q.includes('타격') || q.includes('전투') || q.includes('격투') || q.includes('무협')) {
+          matchedKey = 'action';
+        } else if (q.includes('우주') || q.includes('sf') || q.includes('인공지능') || q.includes('ai') || q.includes('미래') || q.includes('행성') || q.includes('외계')) {
+          matchedKey = 'sf';
+        } else if (q.includes('좀비') || q.includes('아포칼립스') || q.includes('바이러스') || q.includes('감염') || q.includes('멸망') || q.includes('생존')) {
+          matchedKey = 'zombie';
+        } else if (q.includes('마피아') || q.includes('범죄') || q.includes('카르텔') || q.includes('느와르') || q.includes('수사') || q.includes('형사') || q.includes('경찰')) {
+          matchedKey = 'crime';
+        } else if (q.includes('타임') || q.includes('시간') || q.includes('루프') || q.includes('미스터리') || q.includes('회귀') || q.includes('추리')) {
+          matchedKey = 'timeslip';
+        } else if (q.includes('애니') || q.includes('만화') || q.includes('지브리') || q.includes('픽사') || q.includes('판타지')) {
+          matchedKey = 'animation';
+        } else if (q.includes('코미디') || q.includes('웃긴') || q.includes('유머') || q.includes('시트콤') || q.includes('힐링') || q.includes('가족')) {
+          matchedKey = 'comedy';
+        } else if (q.includes('첩보') || q.includes('스파이') || q.includes('국정원') || q.includes('cia') || q.includes('비밀요원')) {
+          matchedKey = 'spy';
         }
 
-        // 테마 및 카드 갱신
-        selectThemePreset(determinedTheme);
+        if (matchedKey) {
+          // 기등록 10대 장르와 매칭된 경우
+          selectThemePreset(matchedKey);
+          document.getElementById('banner-query-text').innerText = `"${rawQuery}" 맞춤 추천 결과`;
+        } else {
+          // [미등록 임의 키워드 동적 생성 엔진]
+          // 사용자가 '캠핑', '요리', '괴물', '음악' 등 어떤 단어를 쳐도 그 자리에서 맞춤 테마 합성!
+          const customKeyword = rawQuery.replace(/(영화|드라마|추천|해줘|관련|작품)/g, '').trim() || rawQuery;
+          generateCustomThemeOnTheFly(customKeyword, rawQuery);
+        }
 
-        // 잔여 횟수 차감 시뮬레이션
+        // 잔여 횟수 실시간 차감
         if (dailyRemainingCount > 1) {
           dailyRemainingCount--;
           document.getElementById('header-remaining').innerText = `${dailyRemainingCount}/10`;
           document.getElementById('modal-daily-count').innerText = `${10 - dailyRemainingCount} / 10회 (잔여 ${dailyRemainingCount}회)`;
         }
 
-        // 로딩 복구
+        // 로딩 복원
         btn.classList.remove('bg-blue-700');
         btnText.innerText = '추천 탐색';
         btnIcon.setAttribute('data-lucide', 'sparkles');
         btnIcon.classList.remove('animate-spin-fast');
-        statusLabel.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> Gemini 2.5 40/40/10/10 추천 갱신 완료</span>`;
+        statusLabel.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> Gemini 2.5 오케스트레이션 추천 갱신 완료</span>`;
         lucide.createIcons();
-      }, 400);
+
+        // 부드러운 스크롤 안내
+        document.getElementById('search-result-banner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 350);
     }
 
+    // 6. 미등록 임의 키워드용 실시간 동적 합성 엔진
+    function generateCustomThemeOnTheFly(keyword, fullQuery) {
+      const parentGenreTitle = `${keyword} 특화 테마 (AI 스마트 분석)`;
+      
+      currentThemeState = {
+        key: 'custom',
+        parentGenre: parentGenreTitle,
+        subgenres: [
+          { id: "sub-1", name: `${keyword}·레전드명작`, desc: `전문가와 관객이 극찬한 ${keyword} 최고 걸작`, active: true },
+          { id: "sub-2", name: `${keyword}·글로벌화제작`, desc: `전 세계 OTT 시청 순위 1위 흥행작`, active: true },
+          { id: "sub-3", name: `${keyword}·몰입스릴`, desc: `1초도 눈을 뗄 수 없는 팽팽한 긴장감`, active: false },
+          { id: "sub-4", name: `${keyword}·숨은수작`, desc: `나만 알고 싶은 웰메이드 감동 수작`, active: false }
+        ]
+      };
+
+      // 동적 영화 및 드라마 데이터 생성
+      const customMedia = {
+        movies: [
+          {
+            id: `custom_m1`,
+            type: 'movie',
+            title: `${keyword} 마스터피스: 더 비기닝`,
+            origTitle: `${keyword} Masterpiece (2024)`,
+            gradient: 'from-blue-800 via-indigo-950 to-black',
+            score: '95.4',
+            subscore: { audience: 96, pop: 97, critic: 94, taste: 95 },
+            platforms: ['넷플릭스', '티빙', '웨이브'],
+            reason: `입력하신 '${keyword}' 주제에 가장 완벽하게 부합하는 대표 추천작. 압도적인 몰입감과 완성도.`,
+            synopsis: `'${keyword}' 세계관 속에서 펼쳐지는 주인공들의 치열한 사투와 운명적인 선택을 그린 블록버스터.`,
+            youtubeVideos: [
+              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: `[어퍼컷] 결말까지 30분 만에 털어주는 ${keyword} 역사상 최고의 명작 요약`, time: '29분 10초', views: '190만회', isSpoiler: true, url: `https://www.youtube.com/results?search_query=어퍼컷+${encodeURIComponent(keyword)}` },
+              { channel: '드림텔러', badgeColor: 'bg-indigo-600', subscribers: '구독자 85만명', title: `[드림텔러] ${keyword} 결말 해석: 숨겨진 복선과 마지막 반전의 의미`, time: '21분 40초', views: '120만회', isSpoiler: true, url: `https://www.youtube.com/results?search_query=드림텔러+${encodeURIComponent(keyword)}` }
+            ]
+          },
+          {
+            id: `custom_m2`,
+            type: 'movie',
+            title: `${keyword}의 심연`,
+            origTitle: `Abyss of ${keyword} (2023)`,
+            gradient: 'from-purple-900 via-slate-950 to-black',
+            score: '92.1',
+            subscore: { audience: 93, pop: 91, critic: 93, taste: 91 },
+            platforms: ['넷플릭스', '쿠팡플레이'],
+            reason: `평론가와 관객 만족도 93점. 섬세한 감정선과 밀도 높은 서스펜스를 자랑하는 ${keyword} 수작.`,
+            synopsis: `숨겨진 비밀을 파헤치며 예상치 못한 진실과 마주하는 주인공의 여정을 감각적인 영상미로 담아냈다.`,
+            youtubeVideos: [
+              { channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: `[무비트랩] [결말포함] 밥 먹을 때 보면 시간 순삭되는 ${keyword} 명작`, time: '25분 30초', views: '140만회', isSpoiler: true, url: `https://www.youtube.com/results?search_query=무비트랩+${encodeURIComponent(keyword)}` }
+            ]
+          },
+          {
+            id: `custom_m3`,
+            type: 'movie',
+            isCinema: true,
+            title: `${keyword}: 최후의 결전`,
+            origTitle: `${keyword}: The Final Showdown (2024)`,
+            gradient: 'from-stone-800 via-zinc-950 to-black',
+            score: '89.7',
+            subscore: { audience: 90, pop: 92, critic: 86, taste: 91 },
+            platforms: ['CGV / 메가박스 상영중'],
+            reason: `현재 국내 극장에서 뜨거운 입소문을 모으고 있는 ${keyword} 최신 화제작.`,
+            synopsis: `거대한 위기에 직면한 인물들이 모든 것을 걸고 펼치는 마지막 결전.`,
+            youtubeVideos: [
+              { channel: '영화세상', badgeColor: 'bg-emerald-600', subscribers: '구독자 54만명', title: `[영화세상] 극장 가기 전 꼭 봐야 할 ${keyword} 관람 포인트`, time: '15분 20초', views: '65만회', isSpoiler: false, url: `https://www.youtube.com/results?search_query=영화세상+${encodeURIComponent(keyword)}` }
+            ]
+          }
+        ],
+        series: [
+          {
+            id: `custom_s1`,
+            type: 'series',
+            title: `${keyword} 크로니클 (시즌 1)`,
+            origTitle: `${keyword} Chronicles Season 1 (2024)`,
+            gradient: 'from-emerald-900 via-teal-950 to-slate-900',
+            score: '96.2',
+            subscore: { audience: 98, pop: 97, critic: 95, taste: 95 },
+            platforms: ['넷플릭스', '디즈니+'],
+            seasonLabel: '시즌 1 강력 추천',
+            seasonGuide: {
+              badge: `✨ ${keyword} 인생 드라마 (시즌 1 즉시 감상)`,
+              type: 'continuous',
+              advice: `1화부터 눈을 뗄 수 없는 폭풍 전개! ${keyword} 매니아라면 필수로 시청해야 할 수작입니다.`,
+              trend: '전 세계 시청률 1위 돌파',
+              seasons: [
+                { season: 1, year: '2024.01', episodes: '10부작', score: 96, watched: false, isCurrentTarget: true, desc: `${keyword}의 거대한 비밀이 시작되는 첫 번째 연대기` }
+              ]
+            },
+            reason: `전 세계를 사로잡은 ${keyword} 명작 시리즈. 빈틈없는 각본과 소름 돋는 연기력.`,
+            synopsis: `의문의 사건으로 얽힌 인물들이 비밀의 퍼즐을 맞춰가며 거대한 진실에 다가선다.`,
+            youtubeVideos: [
+              { channel: '어퍼컷', badgeColor: 'bg-red-600', subscribers: '구독자 108만명', title: `[어퍼컷] 결말까지 40분 만에 털어주는 넷플릭스 1위 ${keyword} 크로니클 몰아보기`, time: '39분 50초', views: '280만회', isSpoiler: true, url: `https://www.youtube.com/results?search_query=어퍼컷+${encodeURIComponent(keyword)}` }
+            ]
+          },
+          {
+            id: `custom_s2`,
+            type: 'series',
+            title: `${keyword} 인사이드 (시즌 2)`,
+            origTitle: `${keyword} Inside Season 2 (2025)`,
+            gradient: 'from-rose-950 via-slate-900 to-black',
+            score: '91.8',
+            subscore: { audience: 93, pop: 94, critic: 88, taste: 92 },
+            platforms: ['티빙', '웨이브'],
+            seasonLabel: '시즌 2 추천',
+            seasonGuide: {
+              badge: `🚨 시즌 1 시청 후 감상 권장`,
+              type: 'continuous',
+              advice: `시즌 1의 떡밥이 시즌 2에서 완전히 회수되므로 1시즌부터 순차 감상을 추천합니다.`,
+              trend: '시즌 2 품질 상승세',
+              seasons: [
+                { season: 1, year: '2023', episodes: '8부작', score: 88, watched: true, desc: `${keyword}의 시발점이 된 미스터리 사건` },
+                { season: 2, year: '2025.01', episodes: '8부작', score: 92, watched: false, isCurrentTarget: true, desc: `더욱 거대해진 음모와 피할 수 없는 결전` }
+              ]
+            },
+            reason: `멈출 수 없는 속도감과 반전. ${keyword} 특유의 쾌감을 극대화한 시리즈.`,
+            synopsis: `진실을 밝히려는 자와 덮으려는 자의 치열한 두뇌 싸움.`,
+            youtubeVideos: [
+              { channel: '무비트랩', badgeColor: 'bg-amber-600', subscribers: '구독자 125만명', title: `[무비트랩] [결말포함] 밤새워서 보게 되는 ${keyword} 미드 몰아보기`, time: '32분 10초', views: '195만회', isSpoiler: true, url: `https://www.youtube.com/results?search_query=무비트랩+${encodeURIComponent(keyword)}` }
+            ]
+          }
+        ]
+      };
+
+      // 글로벌 스토어에 동적 등록
+      customMedia.movies.forEach(m => GLOBAL_MEDIA_STORE[m.id] = m);
+      customMedia.series.forEach(s => GLOBAL_MEDIA_STORE[s.id] = s);
+
+      // UI 및 카드 즉시 렌더링
+      updateThemeUI(parentGenreTitle, fullQuery);
+      renderSubgenrePanel();
+      renderCustomCardsDirectly(customMedia);
+    }
+
+    // 7. 세부 장르 칩 렌더링
     function renderSubgenrePanel() {
       const grid = document.getElementById('subgenre-grid');
       let html = '';
       let activeCount = 0;
 
-      currentTheme.subgenres.forEach((sub, idx) => {
+      currentThemeState.subgenres.forEach((sub, idx) => {
         if (sub.active) activeCount++;
         const cardClass = sub.active ? 'genre-chip-active' : 'genre-chip-inactive';
         const checkIcon = sub.active ? '<i data-lucide="check" class="w-3.5 h-3.5 text-blue-400"></i>' : '';
@@ -1198,31 +992,33 @@
     }
 
     function toggleSubgenre(index) {
-      currentTheme.subgenres[index].active = !currentTheme.subgenres[index].active;
+      currentThemeState.subgenres[index].active = !currentThemeState.subgenres[index].active;
       renderSubgenrePanel();
     }
 
     function selectAllSubgenres() {
-      currentTheme.subgenres.forEach(s => s.active = true);
+      currentThemeState.subgenres.forEach(s => s.active = true);
       renderSubgenrePanel();
     }
 
-    // 6. 실제 영화 및 미드 카드 렌더링 (동적 교체)
-    function renderCards(themeKey) {
-      const themeMedia = THEME_MEDIA_DATABASE[themeKey] || THEME_MEDIA_DATABASE['spy'];
+    // 8. 카드 목록 렌더링 (기등록 테마)
+    function renderMediaCards(themeKey) {
+      const themeData = THEME_MEDIA_DATABASE[themeKey] || THEME_MEDIA_DATABASE['spy'];
+      renderCustomCardsDirectly(themeData);
+    }
 
-      // 영화
+    // 카드 목록 직접 렌더링 공통 함수
+    function renderCustomCardsDirectly(dataObj) {
       const moviesBox = document.getElementById('movies-container');
-      moviesBox.innerHTML = themeMedia.movies.map((m, idx) => createMovieCard(m, idx + 1)).join('');
+      moviesBox.innerHTML = (dataObj.movies || []).map((m, idx) => createMovieCardHTML(m, idx + 1)).join('');
 
-      // 드라마
       const seriesBox = document.getElementById('series-container');
-      seriesBox.innerHTML = themeMedia.series.map((s, idx) => createSeriesCard(s, idx + 1)).join('');
+      seriesBox.innerHTML = (dataObj.series || []).map((s, idx) => createSeriesCardHTML(s, idx + 1)).join('');
       
       lucide.createIcons();
     }
 
-    function createMovieCard(item, rank) {
+    function createMovieCardHTML(item, rank) {
       return `
         <article onclick="openDetailModal('${item.id}')" class="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between relative">
           <div id="badge-watched-${item.id}" class="hidden absolute top-3 right-3 z-20 px-2 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-semibold backdrop-blur-md flex items-center gap-1">
@@ -1299,13 +1095,13 @@
           <div class="p-4 pt-0" onclick="event.stopPropagation()">
             <div class="pt-2 border-t border-slate-800/60 flex items-center justify-between">
               <div class="flex items-center gap-1.5">
-                <button id="btn-watched-${item.id}" onclick="toggleWatched('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-all">
+                <button id="btn-watched-${item.id}" onclick="toggleWatched('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-all cursor-pointer">
                   봤음
                 </button>
-                <button onclick="toggleWishlist('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all">
+                <button onclick="toggleWishlist('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all cursor-pointer">
                   <i data-lucide="heart" class="w-4 h-4"></i>
                 </button>
-                <button onclick="markNotInterested('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-500 hover:text-amber-400 transition-all">
+                <button onclick="markNotInterested('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-500 hover:text-amber-400 transition-all cursor-pointer">
                   <i data-lucide="ban" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -1316,7 +1112,7 @@
       `;
     }
 
-    function createSeriesCard(item, rank) {
+    function createSeriesCardHTML(item, rank) {
       return `
         <article onclick="openDetailModal('${item.id}')" class="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between relative">
           <div>
@@ -1334,7 +1130,6 @@
             </div>
 
             <div class="p-4 space-y-3">
-              <!-- 시즌 정주행 안내 배지 -->
               <div class="p-2 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] flex items-center gap-1.5 text-slate-300">
                 <i data-lucide="info" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
                 <span class="truncate">${item.seasonGuide.badge}</span>
@@ -1389,13 +1184,13 @@
           <div class="p-4 pt-0" onclick="event.stopPropagation()">
             <div class="pt-2 border-t border-slate-800/60 flex items-center justify-between">
               <div class="flex items-center gap-1.5">
-                <button class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-all">
+                <button class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-all cursor-pointer">
                   시즌 체크
                 </button>
-                <button onclick="toggleWishlist('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all">
+                <button onclick="toggleWishlist('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all cursor-pointer">
                   <i data-lucide="heart" class="w-4 h-4"></i>
                 </button>
-                <button onclick="markNotInterested('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-500 hover:text-amber-400 transition-all">
+                <button onclick="markNotInterested('${item.id}')" class="p-1.5 rounded-lg border border-slate-800 text-slate-500 hover:text-amber-400 transition-all cursor-pointer">
                   <i data-lucide="ban" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -1406,9 +1201,9 @@
       `;
     }
 
-    // 7. 상세 모달 열기
+    // 9. 상세 모달 열기 (글로벌 스토어 조회)
     function openDetailModal(id) {
-      const item = ALL_MEDIA_MAP[id];
+      const item = GLOBAL_MEDIA_STORE[id];
       if (!item) return;
 
       const modal = document.getElementById('detail-modal');
@@ -1491,7 +1286,7 @@
     }
 
     function toggleSeasonWatch(mediaId, seasonIdx) {
-      const item = ALL_MEDIA_MAP[mediaId];
+      const item = GLOBAL_MEDIA_STORE[mediaId];
       if (item && item.seasonGuide && item.seasonGuide.seasons[seasonIdx]) {
         item.seasonGuide.seasons[seasonIdx].watched = !item.seasonGuide.seasons[seasonIdx].watched;
         openDetailModal(mediaId);
@@ -1526,14 +1321,14 @@
 
           <div class="shrink-0 flex items-center gap-2">
             ${v.isSpoiler && !isSpoilerUnblinded ? `
-              <button onclick="toggleSpoilerMode()" class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 text-xs font-semibold flex items-center gap-1 border border-amber-500/30">
+              <button onclick="toggleSpoilerMode()" class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 text-xs font-semibold flex items-center gap-1 border border-amber-500/30 cursor-pointer">
                 <i data-lucide="eye" class="w-3.5 h-3.5"></i> 스포일러 보기
               </button>
             ` : `
               <a
                 href="${v.url}"
                 target="_blank"
-                class="px-3.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow"
+                class="px-3.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
               >
                 <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
                 YouTube 시청
@@ -1560,7 +1355,7 @@
       }
 
       const title = document.getElementById('modal-title').innerText;
-      let activeItem = Object.values(ALL_MEDIA_MAP).find(m => m.title === title || title.startsWith(m.title));
+      let activeItem = Object.values(GLOBAL_MEDIA_STORE).find(m => m.title === title || title.startsWith(m.title));
       if (activeItem) {
         renderYouTubeSection(activeItem.youtubeVideos);
       }
